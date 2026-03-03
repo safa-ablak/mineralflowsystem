@@ -23,7 +23,7 @@ public class WarehousingExceptionHandling {
     }
 
     @ExceptionHandler(WarehousingDomainException.class)
-    public ResponseEntity<ErrorDto> handleInvoicing(final WarehousingDomainException ex) {
+    public ResponseEntity<ErrorDto> handleWarehousing(final WarehousingDomainException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(new ErrorDto(ex.getMessage()));
     }

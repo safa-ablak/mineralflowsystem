@@ -23,7 +23,7 @@ public class WatersideExceptionHandling {
     }
 
     @ExceptionHandler(WatersideDomainException.class)
-    public ResponseEntity<ErrorDto> handleInvoicing(final WatersideDomainException ex) {
+    public ResponseEntity<ErrorDto> handleWaterside(final WatersideDomainException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
             .body(new ErrorDto(ex.getMessage()));
     }
