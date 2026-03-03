@@ -1,0 +1,63 @@
+### **Get Access Token for MineralFlow - UNKNOWN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=mineralflow-client&
+client_secret=RAwp8G7HRDtBYr7vzorTWMx9CIsoHbn6&
+username=whoami&
+password=unknown&
+grant_type=password
+
+> {%
+    client.global.set("unknown_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for MineralFlow - WAREHOUSE_MANAGER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=mineralflow-client&
+client_secret=RAwp8G7HRDtBYr7vzorTWMx9CIsoHbn6&
+username=william&
+password=warehouse_manager&
+grant_type=password
+
+> {%
+    client.global.set("warehouse_manager_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for MineralFlow - ADMIN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=mineralflow-client&
+client_secret=RAwp8G7HRDtBYr7vzorTWMx9CIsoHbn6&
+username=adam&
+password=admin&
+grant_type=password
+
+> {%
+    client.global.set("admin_access_token", response.body.access_token);
+%}
+
+#### Retrieve info about the currently authenticated user
+#GET http://localhost:8090/api/welcome/me
+#Authorization: Bearer {{admin_access_token}}
+##Authorization: Bearer {{unknown_access_token}}
+#
+#### Welcome an authenticated user to the Mineral Flow System and show available bounded contexts
+#GET http://localhost:8090/api/welcome/bounded-contexts
+#Authorization: Bearer {{admin_access_token}}
+##Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{unknown_access_token}} # 403, Unknown role
+#
+#### Retrieve all user roles available within the Mineral Flow System
+#GET http://localhost:8090/api/welcome/roles
+#Authorization: Bearer {{admin_access_token}}
+##Authorization: Bearer {{warehouse_manager_access_token}} # 403, Only admin has access!
+#
+#### Retrieve copyright information
+#GET http://localhost:8090/api/welcome/copyright
+#Authorization: Bearer {{admin_access_token}}
+##Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{unknown_access_token}}

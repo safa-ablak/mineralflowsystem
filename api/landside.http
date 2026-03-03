@@ -1,0 +1,160 @@
+# All timestamps must be in UTC (e.g. Brussels = UTC+1, so 10:00 local = 09:00 UTC)
+
+### **Get Access Token for Landside - ADMIN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=landside-client&
+client_secret=lLSnkg3myPI7awUP7Km7d1Sw3we6r3CS&
+username=adam&
+password=admin&
+grant_type=password
+
+> {%
+    client.global.set("admin_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Landside - SELLER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=landside-client&
+client_secret=lLSnkg3myPI7awUP7Km7d1Sw3we6r3CS&
+username=safa&
+password=seller&
+grant_type=password
+
+> {%
+    client.global.set("seller_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Landside - TRUCK_DRIVER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=landside-client&
+client_secret=lLSnkg3myPI7awUP7Km7d1Sw3we6r3CS&
+username=tyler&
+password=truck_driver&
+grant_type=password
+
+> {%
+    client.global.set("truck_driver_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Landside - WAREHOUSE_MANAGER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=landside-client&
+client_secret=lLSnkg3myPI7awUP7Km7d1Sw3we6r3CS&
+username=william&
+password=warehouse_manager&
+grant_type=password
+
+> {%
+    client.global.set("warehouse_manager_access_token", response.body.access_token);
+%}
+
+#### • **As a seller**, I want to see the available time slots for a specific day to see if I can book an appointment.
+#GET http://localhost:8090/api/appointments/available-time-slots?date=2026-03-03
+#Accept: application/json
+#Authorization: Bearer {{seller_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a seller**, I want to make an appointment for a truck loaded with a specific raw material, so that the truck can enter the facility during a specified arrival window.
+#POST http://localhost:8090/api/appointments
+#Content-Type: application/json
+#Authorization: Bearer {{seller_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "truckLicensePlate": "LLJW-999",
+#  "rawMaterial": "GYPSUM",
+#  "scheduledArrivalTime": "2026-03-03T14:51:55"
+#}
+#
+#> {%
+#    client.global.set("appointmentId", response.body.appointmentId);
+#%}
+#
+#### • **As a truck driver**, I want to be recognized by my license plate so that the gate opens for the truck to enter the facility.
+#POST http://localhost:8090/api/gates/entrance
+#Content-Type: application/json
+#Authorization: Bearer {{truck_driver_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "truckLicensePlate": "LLJW-999"
+#}
+#
+#### • **As an admin**, I want to see all weigh bridges on KdG's site, so that I can monitor weigh bridge availability.
+#GET http://localhost:8090/api/weighbridges
+#Accept: application/json
+#Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a truck driver**, I want to pass the weighing bridge upon arrival so that the system can record the truck's weigh-in (gross weight and time)
+#POST http://localhost:8090/api/weighbridges/weigh-in
+#Content-Type: application/json
+#Authorization: Bearer {{truck_driver_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "truckLicensePlate": "LLJW-999",
+#  "grossWeight": 40
+#}
+#
+#### • **As a truck driver**, I want to dock to the correct conveyor belt and receive my copy of the PDT(check the console) and new weighing bridge number.
+#POST http://localhost:8090/api/landside/warehouses/dock
+#Content-Type: application/json
+#Authorization: Bearer {{truck_driver_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "truckLicensePlate": "LLJW-999"
+#}
+#
+#### • **As a truck driver**, I want to pass the weighing bridge on my way out and get a Weighbridge Ticket (WBT) -> Also a delivery will be recorded in the Warehousing BC
+#POST http://localhost:8090/api/weighbridges/weigh-out
+#Content-Type: application/json
+#Authorization: Bearer {{truck_driver_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "truckLicensePlate": "LLJW-999",
+#  "tareWeight": 15
+#}
+#
+#### • **As a truck driver**, I want my license plate to be scanned on my way out for consolidaiton of the appointment.
+#POST http://localhost:8090/api/gates/exit
+#Content-Type: application/json
+#Authorization: Bearer {{truck_driver_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "truckLicensePlate": "LLJW-999"
+#}
+#
+#### • **As a warehouse manager**, I want to get all the trucks that are scheduled between given dates to have an overview of trucks.
+#GET http://localhost:8090/api/landside/monitoring/truck-overviews?from=2026-03-02&to=2026-03-02
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a warehouse manager**, I want to get overview of the truck associated with a certain appointment
+#GET http://localhost:8090/api/landside/monitoring/truck-overview/{{appointmentId}}
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a warehouse manager**, I want to get overview of all trucks currently on site
+#GET http://localhost:8090/api/landside/monitoring/trucks-on-site
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a warehouse manager**, I want to know "how many" trucks are on site so that in case of emergency, I know if there is anyone on site or not.
+#GET http://localhost:8090/api/landside/monitoring/trucks-on-site/count
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}

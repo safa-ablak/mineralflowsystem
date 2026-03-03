@@ -1,0 +1,22 @@
+plugins {
+    id 'module-config'
+}
+
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    // Needed for injecting java.time.Clock as a Spring bean
+    implementation("org.springframework.boot:spring-boot-starter")
+    // Required for working with OAuth2 JWT tokens (Jwt principal)
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    // Security test support (TestSecurityConfig, WithMockJwt)
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.security:spring-security-test'
+}

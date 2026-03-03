@@ -1,0 +1,18 @@
+plugins {
+    id 'module-config'
+    id 'spring-conventions'
+}
+
+dependencies {
+    implementation project(":common")
+    implementation project(':warehousing')
+    implementation project(':landside')
+    implementation project(':waterside')
+    implementation project(':invoicing')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-oauth2-resource-server'
+    runtimeOnly 'com.mysql:mysql-connector-j'
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
+}

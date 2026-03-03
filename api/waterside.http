@@ -1,0 +1,173 @@
+# All timestamps must be in UTC (e.g. Brussels = UTC+1, so 10:00 local = 09:00 UTC)
+
+### **Get Access Token for Waterside - ADMIN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=waterside-client&
+client_secret=mi7FZ0OskRoryIEhaHsXfnvE6jB2Si65&
+username=adam&
+password=admin&
+grant_type=password
+
+> {%
+    client.global.set("admin_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Waterside - SHIP_CAPTAIN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=waterside-client&
+client_secret=mi7FZ0OskRoryIEhaHsXfnvE6jB2Si65&
+username=steve&
+password=ship_captain&
+grant_type=password
+
+> {%
+    client.global.set("ship_captain_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Waterside - INSPECTOR**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=waterside-client&
+client_secret=mi7FZ0OskRoryIEhaHsXfnvE6jB2Si65&
+username=isaac&
+password=inspector&
+grant_type=password
+
+> {%
+    client.global.set("inspector_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Waterside - BUNKERING_OFFICER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=waterside-client&
+client_secret=mi7FZ0OskRoryIEhaHsXfnvE6jB2Si65&
+username=ben&
+password=bunkering_officer&
+grant_type=password
+
+> {%
+    client.global.set("bunkering_officer_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Waterside - FOREMAN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=waterside-client&
+client_secret=mi7FZ0OskRoryIEhaHsXfnvE6jB2Si65&
+username=franklin&
+password=foreman&
+grant_type=password
+
+> {%
+    client.global.set("foreman_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Waterside - WAREHOUSE_MANAGER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=waterside-client&
+client_secret=mi7FZ0OskRoryIEhaHsXfnvE6jB2Si65&
+username=william&
+password=warehouse_manager&
+grant_type=password
+
+> {%
+    client.global.set("warehouse_manager_access_token", response.body.access_token);
+%}
+
+#### • **As a ship captain**, I want to input the Shipping Order and vessel information upon arrival at the loading quay, so that the necessary operations, inspection, bunkering and loading can be planned initiated.
+#POST http://localhost:8090/api/shipping-orders
+#Content-Type: application/json
+#Authorization: Bearer {{ship_captain_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "buyerId": "1e2ee25f-0ada-4727-8c50-6e2c305fa345",
+#  "referenceId": "44444444-4444-4444-4444-444444444444",
+#  "vesselNumber": "LLJW-999",
+#  "scheduledArrivalDate": "2027-01-01T12:00:00",
+#  "scheduledDepartureDate": "2027-01-08T12:00:00"
+#}
+#
+#> {%
+#    client.global.set("shippingOrderId", response.body.shippingOrderId);
+#%}
+#
+#### Extra: • **As a ship captain**, I want to request a correction to a Shipping Order, so that the Buyer or PO Reference information can be updated if mistakes were made. (mistake on first digit of buyerId: 1 -> 0)
+#POST http://localhost:8090/api/shipping-orders/{{shippingOrderId}}/correction-requests
+#Content-Type: application/json
+#Authorization: Bearer {{ship_captain_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "buyerId": "0e2ee25f-0ada-4727-8c50-6e2c305fa345"
+#}
+#
+#### • **As a ship captain**, I want to dock my ship at the loading quay.
+#POST http://localhost:8090/api/shipping-orders/{{shippingOrderId}}/dock
+#Content-Type: application/json
+#Authorization: Bearer {{ship_captain_access_token}}
+##Authorization Bearer {{admin_access_token}}
+#
+#### • **As an inspector**, I want to see all outstanding IOs
+#GET http://localhost:8090/api/shipping-orders/inspection-operations/outstanding
+#Accept: application/json
+#Authorization: Bearer {{inspector_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As an inspector**, I want to complete inspections so that vessels can be inspected
+#POST http://localhost:8090/api/shipping-orders/{{shippingOrderId}}/inspect
+#Content-Type: application/json
+#Authorization: Bearer {{inspector_access_token}}
+##Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "inspectorSignature": "999∞"
+#}
+#
+#### • **As a bunkering officer**, I want to plan all BOs with a maximum of 6 a day so that vessels can be refueled
+#POST http://localhost:8090/api/shipping-orders/{{shippingOrderId}}/bunker
+#Content-Type: application/json
+##Authorization: Bearer {{bunkering_officer_access_token}} # The rule only applies to this role!
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a foreman**, I want to see all shipping orders containing relevant information such as vessel number, inspection status and so on
+#GET http://localhost:8090/api/shipping-orders
+#Accept: application/json
+#Authorization: Bearer {{foreman_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+####
+#GET http://localhost:8090/api/shipping-orders/on-site
+#Accept: application/json
+#Authorization: Bearer {{foreman_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a foreman**, I want to see how many ships are on site.
+#GET http://localhost:8090/api/shipping-orders/on-site/count
+#Accept: application/json
+#Authorization: Bearer {{foreman_access_token}}
+##Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a ship captain**, I want an overview of all operations (IO, BO) to know if I can leave the port.
+#GET http://localhost:8090/api/shipping-orders/{{shippingOrderId}}/operations
+#Authorization: Bearer {{ship_captain_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a warehouse manager**, I want the oldest stock of raw materials for loading allocated automatically so that the seller is charged as little as possible for storage.
+#POST http://localhost:8090/api/shipping-orders/{{shippingOrderId}}/load
+#Content-Type: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}

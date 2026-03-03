@@ -1,0 +1,88 @@
+# All timestamps must be in UTC (e.g. Brussels = UTC+1, so 10:00 local = 09:00 UTC)
+
+### Reusable IDs
+@customerId = 23f11460-22bb-4888-b52a-2c5f6c9d1ea5
+@rawMaterialId = bf1092f8-d11d-47cf-9329-1444885eae54
+
+### **Get Access Token for Invoicing - ADMIN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=invoicing-client&
+client_secret=g9ShwGwdveCG4wjSLzQz9vD9Od4KaQTP&
+username=adam&
+password=admin&
+grant_type=password
+
+> {%
+    client.global.set("admin_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Invoicing - ACCOUNTANT**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=invoicing-client&
+client_secret=g9ShwGwdveCG4wjSLzQz9vD9Od4KaQTP&
+username=alex&
+password=accountant&
+grant_type=password
+
+> {%
+    client.global.set("accountant_access_token", response.body.access_token);
+%}
+
+#### • **As an accountant**, I want to send invoices to customers so that customers have a clear and timely record of their outstanding payments.
+#POST http://localhost:8090/api/invoice-customer/{{customerId}}
+#Authorization: Bearer {{accountant_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • Extra: As an **accountant**, I want to see all Raw Materials
+#GET http://localhost:8090/api/raw-materials
+#Content-Type: application/json
+#Authorization: Bearer {{accountant_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • Extra: As an **accountant**, I want to update the pricing (storage price/ton/day or unit price/ton) for a raw material so that I can keep pricing information up to date.
+#PATCH http://localhost:8090/api/raw-materials/{{rawMaterialId}}
+#Content-Type: application/json
+#Authorization: Bearer {{accountant_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "storagePricePerTonPerDay": 8
+#}
+#
+####
+#PATCH http://localhost:8090/api/raw-materials/{{rawMaterialId}}
+#Content-Type: application/json
+#Authorization: Bearer {{accountant_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "unitPricePerTon": 120
+#}
+#
+####
+#PATCH http://localhost:8090/api/raw-materials/{{rawMaterialId}}
+#Content-Type: application/json
+#Authorization: Bearer {{accountant_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "storagePricePerTonPerDay": 9,
+#  "unitPricePerTon": 121
+#}
+#
+#### • Sending an empty PATCH request should not change any raw material pricing and should return the current data. (no effect)
+#PATCH http://localhost:8090/api/raw-materials/{{rawMaterialId}}
+#Content-Type: application/json
+#Authorization: Bearer {{accountant_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{}
+#
+#### • As an **accountant**, I want to see the total outstanding credit (sum of all SENT invoices)
+#GET http://localhost:8090/api/outstanding-credit/total
+#Authorization: Bearer {{accountant_access_token}}
+##Authorization: Bearer {{admin_access_token}}

@@ -1,0 +1,155 @@
+# All timestamps must be in UTC (e.g. Brussels = UTC+1, so 10:00 local = 09:00 UTC)
+
+### Reusable IDs
+@warehouseId = cd37c514-7cd6-4031-8130-854ffaeee00b
+
+### **Get Access Token for Warehousing - ADMIN**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=warehousing-client&
+client_secret=uq4RSCgQVxOF2rTt4tOPY3N3m6uPI4LH&
+username=adam&
+password=admin&
+grant_type=password
+
+> {%
+    client.global.set("admin_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Warehousing - WAREHOUSE_MANAGER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=warehousing-client&
+client_secret=uq4RSCgQVxOF2rTt4tOPY3N3m6uPI4LH&
+username=william&
+password=warehouse_manager&
+grant_type=password
+
+> {%
+    client.global.set("warehouse_manager_access_token", response.body.access_token);
+%}
+
+### **Get Access Token for Warehousing - BUYER**
+POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+client_id=warehousing-client&
+client_secret=uq4RSCgQVxOF2rTt4tOPY3N3m6uPI4LH&
+username=bart&
+password=buyer&
+grant_type=password
+
+> {%
+    client.global.set("buyer_access_token", response.body.access_token);
+%}
+
+#### • **As a warehouse manager**, I want to have an overview and know what the total raw material is in my warehouses as well as the details of each warehouse.
+#GET http://localhost:8090/api/warehousing/warehouses/overview
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### Extra: • **As a warehouse manager**, I want to view activity history of a specific warehouse, sorted from newest to oldest, so I can trace operational events and investigate stock changes.
+#GET http://localhost:8090/api/warehousing/warehouses/{{warehouseId}}/activity-history?view-mode=WITH_ALLOCATIONS
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+##### Extra: • **As a warehouse manager**, I want to query the Balance of a specific warehouse (optionally as of a given point in time), so I can monitor stock levels currently or historically.
+#
+#### Current balance (asOf defaults to now)
+#GET http://localhost:8090/api/warehousing/warehouses/{{warehouseId}}/balance
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### Historical balance (with asOf parameter)
+#GET http://localhost:8090/api/warehousing/warehouses/{{warehouseId}}/balance?as-of=2026-02-25T00:00:00
+##GET http://localhost:8090/api/warehousing/warehouses/{{warehouseId}}/balance?as-of=2026-02-24T00:00:00 # before any activity: balance = 0
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### Extra: • **As a warehouse manager**, I want to query the net Balance change of a specific warehouse between two dates, so I can track how stock levels have increased or decreased during that period.
+#GET http://localhost:8090/api/warehousing/warehouses/{{warehouseId}}/balance/net-change?from=2025-08-22T00:00:00&to=2025-08-25T00:00:00
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### Extra: • **As a warehouse manager**, I want to retrieve all historical Balance Snapshots of a specific warehouse, so I can analyze how its stock level changed at each snapshot event.
+#GET http://localhost:8090/api/warehousing/warehouses/{{warehouseId}}/balance/snapshots
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a warehouse manager**, I want to have an overview of a specific warehouse
+#GET http://localhost:8090/api/warehousing/warehouses/{{warehouseId}}/overview
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a warehouse manager**, I want to see a summary of total raw material quantities on-site, grouped by raw material type, so I can quickly assess the current distribution of raw materials.
+#GET http://localhost:8090/api/warehousing/warehouses/raw-materials/CEMENT/summary
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • As a **warehouse manager**, I want to know the site configuration (boundaries and warehouse footprint), so I can understand where warehouses can be placed and their dimensions.
+#GET http://localhost:8090/api/warehousing/site/config
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a buyer**, I want to send a Purchase Order to KdG to make sure they can expect a shipment soon.
+#POST http://localhost:8090/api/purchase-orders
+#Content-Type: application/json
+#Authorization: Bearer {{buyer_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "sellerId": "23f11460-22bb-4888-b52a-2c5f6c9d1ea5",
+#  "orderLines":
+#  [
+#    {
+#      "rawMaterial": "PETCOKE",
+#      "amount": 1
+#    }
+#  ]
+#}
+#
+#> {%
+#    client.global.set("purchaseOrderId", response.body.purchaseOrderId);
+#%}
+#
+#### **As a warehouse manager**, I want to view all POs.
+#GET http://localhost:8090/api/purchase-orders
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### **As a warehouse manager**, I want to view POs filtered by status and/or seller.
+#GET http://localhost:8090/api/purchase-orders?status=PENDING
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+####
+#GET http://localhost:8090/api/purchase-orders?sellerName=Safa
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+####
+#GET http://localhost:8090/api/purchase-orders?status=PENDING&sellerName=sAfA
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}
+#
+#### • **As a warehouse manager**, I want to view a specific PO.
+##GET http://localhost:8090/api/purchase-orders/11111111-1111-1111-1111-111111111111
+#GET http://localhost:8090/api/purchase-orders/{{purchaseOrderId}}
+#Accept: application/json
+#Authorization: Bearer {{warehouse_manager_access_token}}
+##Authorization: Bearer {{admin_access_token}}

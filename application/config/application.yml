@@ -1,0 +1,50 @@
+server:
+  port: ${PORT:8090}
+  servlet:
+    context-path: /api
+
+spring:
+  sql:
+    init:
+      mode: always
+  jackson:
+    time-zone: UTC # Ensures all JSON date/time serialization uses UTC (consistent with system-wide UTC policy)
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+      show-sql: true
+    defer-datasource-initialization: true
+  datasource:
+    url: "jdbc:mysql://localhost:3306/app_db"
+    username: user
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: myuser
+    password: mypassword
+  config:
+    additional-location: ${SPRING_CONFIG_ADDITIONAL_LOCATION}
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8180/realms/mineralflow/protocol/openid-connect/certs
+          issuer-uri: http://localhost:8180/realms/mineralflow
+
+logging:
+  level:
+    be.kdg.prog6.warehousing.core: DEBUG # enable debug logs for this package
+
+kdg:
+  site:
+    bounds:
+      min-easting: ${SITE_MIN_EASTING:0}
+      max-easting: ${SITE_MAX_EASTING:1200}
+      min-northing: ${SITE_MIN_NORTHING:0}
+      max-northing: ${SITE_MAX_NORTHING:800}
+    footprint:
+      width: ${WAREHOUSE_FOOTPRINT_WIDTH:100}
+      height: ${WAREHOUSE_FOOTPRINT_HEIGHT:100}

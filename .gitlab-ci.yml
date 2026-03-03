@@ -1,0 +1,46 @@
+image: timbru31/java-node:21-alpine-jdk-22
+
+variables:
+  # Keep Gradle cache inside project so GitLab can persist it.
+  GRADLE_USER_HOME: "$CI_PROJECT_DIR/.gradle"
+  # Common CI speed flags for multi-module builds.
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dorg.gradle.caching=true"
+
+cache:
+  # Reuse Gradle wrapper + dependency cache across pipelines on this branch.
+  key: "$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG-gradle"
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+  # Default jobs should only download cache; avoid extra upload overhead.
+  policy: pull
+
+before_script:
+  - chmod +x ./gradlew
+
+build:
+  stage: build
+  # Build job updates cache once for downstream jobs.
+  cache:
+    key: "$CI_PROJECT_PATH_SLUG-$CI_COMMIT_REF_SLUG-gradle"
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+    policy: pull-push
+  script: ./gradlew --build-cache --parallel assemble
+
+test:
+  stage: test
+  # Docker-in-Docker is required by Testcontainers.
+  services:
+    - name: docker:24.0.5-dind
+      command: ["--tls=false"]
+  variables:
+    DOCKER_HOST: "tcp://docker:2375"
+    DOCKER_TLS_CERTDIR: ""
+    # Shared runners often block privileged cleanup container.
+    TESTCONTAINERS_RYUK_DISABLED: "true"
+  artifacts:
+    reports:
+      junit: "*/build/test-results/test/**/TEST-*.xml"
+  script: ./gradlew --build-cache --parallel check
