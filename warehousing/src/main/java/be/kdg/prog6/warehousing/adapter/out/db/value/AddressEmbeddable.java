@@ -12,6 +12,13 @@ public class AddressEmbeddable {
     public AddressEmbeddable() {
     }
 
+    public AddressEmbeddable(final String streetName, final String streetNumber, final String city, final String country) {
+        this.streetName = streetName;
+        this.streetNumber = streetNumber;
+        this.city = city;
+        this.country = country;
+    }
+
     public String getStreetName() {
         return streetName;
     }

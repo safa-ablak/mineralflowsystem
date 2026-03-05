@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 
 class GetWarehouseActivityHistoryUseCaseImplMockingTest {
     private static final LocalDateTime BASE_TIME =
-        LocalDateTime.of(2024, 1, 1, 0, 0);
+        LocalDateTime.of(2026, 1, 1, 0, 0);
 
     private GetWarehouseActivityHistoryUseCase sut;
     private LoadWarehousePort loadWarehousePort;

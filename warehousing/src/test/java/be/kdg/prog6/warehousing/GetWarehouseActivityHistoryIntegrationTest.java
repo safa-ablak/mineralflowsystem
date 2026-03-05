@@ -6,6 +6,7 @@ import be.kdg.prog6.warehousing.adapter.out.db.repository.ShipmentAllocationJpaR
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseDeliveryJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseShipmentJpaRepository;
+import be.kdg.prog6.warehousing.adapter.out.db.value.AddressEmbeddable;
 import be.kdg.prog6.warehousing.adapter.out.db.value.SiteLocationEmbeddable;
 import be.kdg.prog6.warehousing.domain.storage.RawMaterial;
 import be.kdg.prog6.warehousing.port.in.query.GetWarehouseActivityHistoryQuery;
@@ -23,7 +24,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GetWarehouseActivityHistoryIntegrationTest extends AbstractDatabaseTest {
     private static final LocalDateTime BASE_TIME =
-        LocalDateTime.of(2024, 1, 1, 0, 0);
+        LocalDateTime.of(2026, 1, 1, 0, 0);
 
     @Autowired
     private GetWarehouseActivityHistoryUseCase sut;
@@ -84,6 +85,10 @@ class GetWarehouseActivityHistoryIntegrationTest extends AbstractDatabaseTest {
         final SellerJpaEntity seller = new SellerJpaEntity();
         seller.setId(TestIds.SELLER_ID.id());
         seller.setName(TestIds.SELLER_NAME);
+        seller.setAddress(new AddressEmbeddable(
+            TestIds.SELLER_ADDRESS.streetName(), TestIds.SELLER_ADDRESS.streetNumber(),
+            TestIds.SELLER_ADDRESS.city(), TestIds.SELLER_ADDRESS.country())
+        );
         return seller;
     }
 
