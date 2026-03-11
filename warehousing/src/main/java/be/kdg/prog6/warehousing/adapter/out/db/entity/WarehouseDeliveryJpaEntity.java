@@ -41,7 +41,7 @@ public class WarehouseDeliveryJpaEntity {
         return amount;
     }
 
-    public void setAmount(final BigDecimal deliveredAmount) {
-        this.amount = deliveredAmount;
+    public void setAmount(final BigDecimal amount) {
+        this.amount = amount;
     }
 }
