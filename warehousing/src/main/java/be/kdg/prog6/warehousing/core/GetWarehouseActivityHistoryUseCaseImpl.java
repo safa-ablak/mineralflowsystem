@@ -29,7 +29,7 @@ public class GetWarehouseActivityHistoryUseCaseImpl implements GetWarehouseActiv
     public WarehouseActivityHistory getWarehouseActivityHistory(final GetWarehouseActivityHistoryQuery query) {
         final WarehouseId warehouseId = query.warehouseId();
         final GetWarehouseActivityHistoryQuery.ViewMode viewMode = query.viewMode();
-        LOGGER.info("Getting Activity History of Warehouse with ID {} View Mode <{}>",
+        LOGGER.info("Getting Activity History of Warehouse with ID {} View Mode {}",
             warehouseId.id(), viewMode
         );
         final Warehouse warehouse = (switch (viewMode) {

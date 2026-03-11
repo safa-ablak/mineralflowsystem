@@ -44,9 +44,8 @@ public class RecordTruckWeighInUseCaseImpl implements RecordTruckWeighInUseCase 
         );
         // The weigh bridge was already occupied at entrance gate recognition
         final WeighBridge weighBridge = loadWeighBridgePort.loadByOccupiedVisitId(visit.getVisitId()).orElseThrow();
-        LOGGER.info("Recording weigh-in for truck {} on weighbridge {}",
-            plate, weighBridge.getNumber().value()
-        );
+
+        LOGGER.info("Recording weigh-in for truck {} on weighbridge {}", plate, weighBridge.getNumber().value());
         final WeighBridgeTransaction transaction = visit.recordWeighIn(command.grossWeight());
         // Release the weigh bridge – truck leaves for the warehouse
         weighBridge.release();

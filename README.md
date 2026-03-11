@@ -68,9 +68,11 @@ Each bounded context is structured as a **hexagonal (ports & adapters)** module,
 
 ### Setup
 
-1. Clone the repository: [ablakhuseyin/backend on GitLab](https://gitlab.com/kdg-ti/programming6/students/24-25/ablakhuseyin/backend)
+1. Clone the repository.
 2. Run [`docker-compose.yml`](infrastructure/docker-compose.yml) – starts **MySQL**, **RabbitMQ**, and **Keycloak** for local development.
-The Keycloak realm ([`mineralflow-realm.json`](infrastructure/mineralflow-realm.json)) with all clients, users, roles, and credentials is auto-imported on first startup.
+On first startup, the following are auto-imported:
+   - The database init script ([`init.sql`](infrastructure/mysql/init.sql)) creates the required schemas and grants privileges.
+   - The Keycloak realm ([`mineralflow-realm.json`](infrastructure/mineralflow-realm.json)) with all clients, users, roles, and credentials.
 3. Run [`MineralFlowApplication.java`](application/src/main/java/be/kdg/prog6/MineralFlowApplication.java)
 4. Test the APIs using the provided HTTP files in the [`api`](api) folder
 

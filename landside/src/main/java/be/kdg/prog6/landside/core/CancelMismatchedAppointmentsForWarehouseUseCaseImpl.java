@@ -49,9 +49,9 @@ public class CancelMismatchedAppointmentsForWarehouseUseCaseImpl implements Canc
         LOGGER.info("Cancelling {} mismatched Appointment(s) for Warehouse {} (new Raw Material: {})",
             mismatchedAppointments.size(), warehouseId.id(), newRawMaterial
         );
-        final Map<LocalDate, List<Appointment>> dateToAppointments =
+        final Map<LocalDate, List<Appointment>> byDate =
             mismatchedAppointments.stream().collect(Collectors.groupingBy(a -> a.getArrivalWindowStart().toLocalDate()));
-        for (var entry : dateToAppointments.entrySet()) {
+        for (var entry : byDate.entrySet()) {
             final DailySchedule dailySchedule = loadDailySchedulePort.loadDailyScheduleByDate(entry.getKey()).orElseThrow();
             for (final Appointment appointment : entry.getValue()) {
                 dailySchedule.cancelAppointment(appointment.getAppointmentId());
