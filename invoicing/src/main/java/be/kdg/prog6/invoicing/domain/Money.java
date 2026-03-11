@@ -40,7 +40,7 @@ public final class Money {
     private static BigDecimal validateAndNormalize(final BigDecimal amount, final Currency currency) {
         requireNonNull(amount, "Amount cannot be null");
         if (amount.compareTo(BigDecimal.ZERO) < 0) {
-            throw new IllegalArgumentException("Money amount cannot be negative.");
+            throw new IllegalArgumentException("Money amount cannot be negative");
         }
         final int precision = currency.getDefaultFractionDigits();
         return amount.setScale(precision, RoundingMode.HALF_UP);

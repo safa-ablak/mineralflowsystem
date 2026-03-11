@@ -41,9 +41,7 @@ public class GetAvailableTimeSlotsUseCaseImpl implements GetAvailableTimeSlotsUs
     @Transactional
     public List<AvailableTimeSlot> getAvailableTimeSlotsFor(final LocalDate date) {
         final LocalDateTime now = LocalDateTime.now(clock);
-        LOGGER.info("Getting Available Time Slots for date {} at {}",
-            date, KDG
-        );
+        LOGGER.info("Getting Available Time Slots for date {} at {}", date, KDG);
         final DailySchedule dailySchedule = loadDailySchedulePort.loadDailyScheduleByDate(date).orElseThrow(
             () -> DailyScheduleNotAvailableException.forDate(date)
         );

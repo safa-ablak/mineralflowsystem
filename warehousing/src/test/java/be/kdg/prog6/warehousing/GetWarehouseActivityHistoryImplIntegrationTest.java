@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GetWarehouseActivityHistoryIntegrationTest extends AbstractDatabaseTest {
+class GetWarehouseActivityHistoryImplIntegrationTest extends AbstractDatabaseTest {
     private static final LocalDateTime BASE_TIME =
         LocalDateTime.of(2026, 1, 1, 0, 0);
 

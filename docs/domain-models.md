@@ -160,7 +160,7 @@ A lightweight local projection of a warehouse; synced from the Warehousing BC.
 - `isAvailable: boolean`
 
 **Behaviors:**
-- `updateAvailability(BigDecimal percentageFilled)` — marks unavailable if >= 80%
+- `updateAvailability(BigDecimal percentageFilled)` – marks unavailable if >= 80%
 - `setRawMaterial(RawMaterial)`
 - `ensureAvailableForNewAppointment()`
 
@@ -168,7 +168,7 @@ A lightweight local projection of a warehouse; synced from the Warehousing BC.
 
 ### Domain Events
 
-- **`TruckDepartedEvent(TruckLicensePlate, AppointmentId)`** — emitted by `Visit.complete()`
+- **`TruckDepartedEvent(TruckLicensePlate, AppointmentId)`** – emitted by `Visit.complete()`
 
 ---
 
@@ -177,13 +177,13 @@ A lightweight local projection of a warehouse; synced from the Warehousing BC.
 - `AppointmentId(UUID)`
 - `VisitId(UUID)`
 - `WarehouseId(UUID)`
-- `SupplierId(UUID)` — context map: "Sellers" in Warehousing = "Suppliers" in Landside
-- `TruckLicensePlate(String)` — validated: `^[A-Z0-9\-]{2,12}$`, normalized to uppercase
+- `SupplierId(UUID)` – context map: "Sellers" in Warehousing = "Suppliers" in Landside
+- `TruckLicensePlate(String)` – validated: `^[A-Z0-9\-]{2,12}$`, normalized to uppercase
 - `TimeSlotId(UUID)`
 - `WeighBridgeId(UUID)`
 - `WeighBridgeTransactionId(UUID)`
-- `WeighBridgeNumber(String)` — format `WB-XX`
-- `Dock(String)` — format `D-XX`
+- `WeighBridgeNumber(String)` – format `WB-XX`
+- `Dock(String)` – format `D-XX`
 
 ### Enums
 
@@ -224,13 +224,13 @@ Represents a physical warehouse operated by a seller where raw materials are sto
 - `WarehouseNumber`
 - `SellerId`
 - `RawMaterial`
-- `Balance` (base — latest snapshot)
+- `Balance` (base – latest snapshot)
 - `StockLedger`
 - `SiteLocation`
 
 **Behaviors:**
-- `recordDelivery(BigDecimal)` — validates capacity (max 110% of 500kt)
-- `recordShipment(BigDecimal)` — validates sufficient stock, FIFO allocation
+- `recordDelivery(BigDecimal)` – validates capacity (max 110% of 500kt)
+- `recordShipment(BigDecimal)` – validates sufficient stock, FIFO allocation
 - `assignRawMaterial(RawMaterial)`
 - `snapshotBalance(LocalDateTime now)`
 - `calculateStockLevel()`
@@ -256,7 +256,7 @@ Append-only ledger tracking deliveries and shipments to/from a warehouse. Suppor
 
 **Behaviors:**
 - `recordDelivery(BigDecimal)`
-- `recordShipment(BigDecimal)` — FIFO allocation across deliveries
+- `recordShipment(BigDecimal)` – FIFO allocation across deliveries
 - `calculateBalance(Balance baseBalance)`
 - `getStoredDeliveryRemainders(LocalDateTime)`
 - `getShippableDeliveries()`
@@ -409,7 +409,7 @@ Represents the net amount of raw materials at a point in time.
 - `amount: BigDecimal`
 
 **Constants:**
-- `ORIGIN` — zero balance at `LocalDateTime.MIN`
+- `ORIGIN` – zero balance at `LocalDateTime.MIN`
 
 **Behaviors:**
 - `isZero()`
@@ -431,7 +431,7 @@ Snapshot of warehouse stock level including computed fill percentage.
 
 ### Domain Services
 
-- **`ShipmentService`** — Ships raw materials for a purchase order's order lines from eligible warehouses.
+- **`ShipmentService`** – Ships raw materials for a purchase order's order lines from eligible warehouses.
   - `shipForPurchaseOrderFrom(PurchaseOrder, List<Warehouse>) : Map<Warehouse, ShipmentRecord>`
 
 ---
@@ -442,16 +442,16 @@ Snapshot of warehouse stock level including computed fill percentage.
 - `WarehouseNumber(String)` – validated format: `WH-XX`
 - `SellerId(UUID)`
 - `BuyerId(UUID)`
-- `DeliveryId(WarehouseId, UUID)` — composite key scoping delivery to warehouse
-- `ShipmentId(WarehouseId, UUID)` — composite key scoping shipment to warehouse
+- `DeliveryId(WarehouseId, UUID)` – composite key scoping delivery to warehouse
+- `ShipmentId(WarehouseId, UUID)` – composite key scoping shipment to warehouse
 - `PayloadDeliveryTicketId(UUID)`
 - `PurchaseOrderId(UUID)`
 - `PurchaseOrderNumber(String)` – validated format: `PO######`
 - `OrderLineId(UUID)`
 - `Address(String streetName, String streetNumber, String city, String country)`
-- `SiteLocation(double easting, double northing)` — physical position on site
+- `SiteLocation(double easting, double northing)` – physical position on site
 - `SiteBounds(double minEasting, double maxEasting, double minNorthing, double maxNorthing)`
-- `WarehouseFootprint(double width, double height)` — physical dimensions
+- `WarehouseFootprint(double width, double height)` – physical dimensions
 
 ### Enums
 
@@ -555,8 +555,8 @@ Represents the fueling (bunkering) operation for a ship.
 
 ### Domain Services
 
-- **`BunkeringOperationService`** — Enforces the daily bunkering limit (max 6 per day).
-  - `validateBunkeringLimit(int dailyOperationCount)` — throws `BunkeringLimitExceededException`
+- **`BunkeringOperationService`** – Enforces the daily bunkering limit (max 6 per day).
+  - `validateBunkeringLimit(int dailyOperationCount)` – throws `BunkeringLimitExceededException`
   - `canPerformBunkering(int dailyOperationCount) : boolean`
 
 ---
@@ -695,7 +695,7 @@ Represents a commission rate (e.g. 1%) applied to total raw material costs for a
 
 ### Domain Services
 
-- **`RawMaterialCostCalculator`** — Calculates total raw material cost for use in commission fee computation.
+- **`RawMaterialCostCalculator`** – Calculates total raw material cost for use in commission fee computation.
   - `calculateTotalRawMaterialCosts(Map<RawMaterial, BigDecimal> rawMaterialToAmount) : Money`
 
 ---
@@ -703,7 +703,7 @@ Represents a commission rate (e.g. 1%) applied to total raw material costs for a
 ### Value Objects
 
 - `InvoiceId(UUID)`
-- `CustomerId(UUID)` — context map: "Sellers" in Warehousing = "Customers" in Invoicing
+- `CustomerId(UUID)` – context map: "Sellers" in Warehousing = "Customers" in Invoicing
 - `InvoiceLineId(UUID)`
 - `RawMaterialId(UUID)`
 - `Money(BigDecimal, Currency)`
