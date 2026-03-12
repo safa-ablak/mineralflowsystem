@@ -76,6 +76,8 @@ On first startup, the following are auto-imported:
 3. Run [`MineralFlowApplication.java`](application/src/main/java/be/kdg/prog6/MineralFlowApplication.java)
 4. Test the APIs using the provided HTTP files in the [`api`](api) folder
 
+> **Note:** If you change `init.sql` or encounter database issues, delete `infrastructure/mysql/data` and restart the containers.
+
 ---
 
 ## Bounded Contexts

@@ -4,7 +4,7 @@ services:
     command: --default-time-zone=UTC # Ensures MySQL timestamps (e.g., NOW()) use UTC consistently
     restart: no
     environment:
-      MYSQL_DATABASE: 'app_db'
+      MYSQL_DATABASE: 'mineralflow_db'
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
