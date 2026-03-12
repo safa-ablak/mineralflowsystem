@@ -5,6 +5,6 @@ import be.kdg.prog6.waterside.domain.InspectionOperationStatus;
 
 import java.util.List;
 
-public interface LoadInspectionOperationPort {
+public interface InspectionOperationQueryPort {
     List<InspectionOperation> loadInspectionOperationsByStatus(InspectionOperationStatus status);
 }

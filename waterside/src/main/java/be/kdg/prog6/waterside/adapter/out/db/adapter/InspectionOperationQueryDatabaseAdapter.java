@@ -5,7 +5,7 @@ import be.kdg.prog6.waterside.adapter.out.db.repository.InspectionOperationJpaRe
 import be.kdg.prog6.waterside.domain.InspectionOperation;
 import be.kdg.prog6.waterside.domain.InspectionOperationId;
 import be.kdg.prog6.waterside.domain.InspectionOperationStatus;
-import be.kdg.prog6.waterside.port.out.LoadInspectionOperationPort;
+import be.kdg.prog6.waterside.port.out.InspectionOperationQueryPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class InspectionOperationQueryDatabaseAdapter implements LoadInspectionOperationPort {
+public class InspectionOperationQueryDatabaseAdapter implements InspectionOperationQueryPort {
     private static final Logger LOGGER = LoggerFactory.getLogger(InspectionOperationQueryDatabaseAdapter.class);
 
     private final InspectionOperationJpaRepository inspectionOperationJpaRepository;

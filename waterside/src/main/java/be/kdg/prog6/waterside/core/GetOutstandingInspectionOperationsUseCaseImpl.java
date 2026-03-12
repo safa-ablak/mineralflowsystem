@@ -3,7 +3,7 @@ package be.kdg.prog6.waterside.core;
 import be.kdg.prog6.waterside.domain.InspectionOperation;
 import be.kdg.prog6.waterside.domain.InspectionOperationStatus;
 import be.kdg.prog6.waterside.port.in.usecase.query.GetOutstandingInspectionOperationsUseCase;
-import be.kdg.prog6.waterside.port.out.LoadInspectionOperationPort;
+import be.kdg.prog6.waterside.port.out.InspectionOperationQueryPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,17 @@ import static be.kdg.prog6.common.ProjectInfo.KDG;
 public class GetOutstandingInspectionOperationsUseCaseImpl implements GetOutstandingInspectionOperationsUseCase {
     private static final Logger LOGGER = LoggerFactory.getLogger(GetOutstandingInspectionOperationsUseCaseImpl.class);
 
-    private final LoadInspectionOperationPort loadInspectionOperationPort;
+    private final InspectionOperationQueryPort inspectionOperationQueryPort;
 
-    public GetOutstandingInspectionOperationsUseCaseImpl(final LoadInspectionOperationPort loadInspectionOperationPort) {
-        this.loadInspectionOperationPort = loadInspectionOperationPort;
+    public GetOutstandingInspectionOperationsUseCaseImpl(final InspectionOperationQueryPort inspectionOperationQueryPort) {
+        this.inspectionOperationQueryPort = inspectionOperationQueryPort;
     }
 
     @Override
     public List<InspectionOperation> getOutstandingInspectionOperations() {
         LOGGER.info("Getting Outstanding Inspection Operations at {}", KDG);
         final List<InspectionOperation> outstandingInspectionOperations =
-            loadInspectionOperationPort.loadInspectionOperationsByStatus(InspectionOperationStatus.SCHEDULED);
+            inspectionOperationQueryPort.loadInspectionOperationsByStatus(InspectionOperationStatus.SCHEDULED);
         LOGGER.info("Found {} Outstanding Inspection Operations", outstandingInspectionOperations.size());
         return outstandingInspectionOperations;
     }
