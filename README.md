@@ -164,7 +164,7 @@ To see notes and assumptions made in the project, see the separate file: [Notes 
 
 ## Implemented User Stories
 
-For the full backlog and user stories, see the [Issue Board](https://gitlab.com/kdg-ti/programming6/students/24-25/ablakhuseyin/backend/-/boards).
+For the full backlog and user stories, see the [Issue Board](https://github.com/huseyin-ablak/mineralflowsystem/issues).
 
 ---
 
