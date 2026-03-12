@@ -126,18 +126,16 @@ public class DailyScheduleDatabaseAdapter implements LoadDailySchedulePort, Upda
     }
 
     private AppointmentJpaEntity toAppointmentJpaEntity(final Appointment appointment, final TimeSlotJpaEntity parentSlot) {
-        final AppointmentJpaEntity entity = new AppointmentJpaEntity();
-
-        entity.setAppointmentId(appointment.getAppointmentId().id());
-        entity.setSupplierId(appointment.getSupplierId().id());
-        entity.setWarehouseId(appointment.getWarehouseId().id());
-        entity.setTruckLicensePlate(appointment.getTruckLicensePlate().value());
-        entity.setRawMaterial(appointment.getRawMaterial());
-        entity.setArrivalWindowStart(appointment.getArrivalWindowStart());
-        entity.setArrivalWindowEnd(appointment.getArrivalWindowEnd());
-        entity.setStatus(appointment.getStatus());
-        entity.setTimeSlot(parentSlot);
-
-        return entity;
+        final AppointmentJpaEntity appointmentJpa = new AppointmentJpaEntity();
+        appointmentJpa.setAppointmentId(appointment.getAppointmentId().id());
+        appointmentJpa.setSupplierId(appointment.getSupplierId().id());
+        appointmentJpa.setWarehouseId(appointment.getWarehouseId().id());
+        appointmentJpa.setTruckLicensePlate(appointment.getTruckLicensePlate().value());
+        appointmentJpa.setRawMaterial(appointment.getRawMaterial());
+        appointmentJpa.setArrivalWindowStart(appointment.getArrivalWindowStart());
+        appointmentJpa.setArrivalWindowEnd(appointment.getArrivalWindowEnd());
+        appointmentJpa.setStatus(appointment.getStatus());
+        appointmentJpa.setTimeSlot(parentSlot);
+        return appointmentJpa;
     }
 }
