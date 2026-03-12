@@ -104,7 +104,7 @@ grant_type=password
 #
 ##### • **As a buyer**, I want to send a Purchase Order to KdG to make sure they can expect a shipment soon.
 #
-#### As buyer (buyerId taken from JWT)
+#### As buyer (buyerId is taken from JWT)
 #POST http://localhost:8090/api/purchase-orders
 #Content-Type: application/json
 #Authorization: Bearer {{buyer_access_token}}

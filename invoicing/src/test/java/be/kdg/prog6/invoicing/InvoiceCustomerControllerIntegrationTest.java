@@ -69,12 +69,12 @@ public class InvoiceCustomerControllerIntegrationTest extends AbstractDatabaseTe
 
         // Assert
         result.andExpect(status().isOk())
-            .andExpect(jsonPath("$.customerId").value(customerId.toString())) // Verify that the customer ID matches
-            .andExpect(jsonPath("$.draftedDate").value(TestIds.INVOICE_DRAFTED_DATE.toString())) // Verify that the drafted date matches the test data
-            .andExpect(jsonPath("$.sentDate").value(TestTimeConfig.FIXED_NOW.toLocalDate().toString())) // Verify that the sent date matches the fixed clock
-            .andExpect(jsonPath("$.status").value("SENT")) // Verify that the status is updated to SENT
-            .andExpect(jsonPath("$.invoiceLines.length()").value(3)) // Verify that the invoice has 3 lines
-            .andExpect(jsonPath("$.total.currencyCode").value("USD")) // Verify currency (USD)
-            .andExpect(jsonPath("$.total.amount").value(220.00)); // Verify that the total amount is correct
+            .andExpect(jsonPath("$.customerId").value(customerId.toString()))
+            .andExpect(jsonPath("$.draftedDate").value(TestIds.INVOICE_DRAFTED_DATE.toString()))
+            .andExpect(jsonPath("$.sentDate").value(TestTimeConfig.FIXED_NOW.toLocalDate().toString()))
+            .andExpect(jsonPath("$.status").value("SENT"))
+            .andExpect(jsonPath("$.invoiceLines.length()").value(3))
+            .andExpect(jsonPath("$.total.currencyCode").value("USD"))
+            .andExpect(jsonPath("$.total.amount").value(220.00));
     }
 }
