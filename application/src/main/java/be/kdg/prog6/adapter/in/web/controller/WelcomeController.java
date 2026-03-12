@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 
-import static be.kdg.prog6.common.ProjectInfo.SYSTEM_NAME;
+import static be.kdg.prog6.common.ProjectInfo.SYSTEM;
 import static be.kdg.prog6.common.security.UserActivityLogger.logUserActivity;
 import static be.kdg.prog6.common.security.UserRoleUtil.extractRole;
 import static java.lang.String.format;
@@ -52,7 +52,7 @@ public class WelcomeController {
     public ResponseEntity<List<BoundedContextDto>> boundedContexts(@AuthenticationPrincipal final Jwt jwt) {
         logUserActivity(LOGGER, jwt, format(
             "is viewing available Bounded Contexts within %s%n%s",
-            SYSTEM_NAME,
+            SYSTEM,
             BoundedContext.toFormattedList()
         ));
         final List<BoundedContextDto> boundedContextDtos = Arrays.stream(BoundedContext.values())
@@ -70,7 +70,7 @@ public class WelcomeController {
     public ResponseEntity<List<RoleDto>> roles(@AuthenticationPrincipal final Jwt jwt) {
         logUserActivity(LOGGER, jwt, format(
             "is viewing available roles within %s",
-            SYSTEM_NAME
+            SYSTEM
         ));
         final List<RoleDto> roleDtos = Arrays.stream(UserRole.values())
             .map(RoleDto::of)
