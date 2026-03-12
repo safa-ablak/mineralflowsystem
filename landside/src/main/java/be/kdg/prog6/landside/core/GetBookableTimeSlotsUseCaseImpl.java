@@ -40,14 +40,13 @@ public class GetBookableTimeSlotsUseCaseImpl implements GetBookableTimeSlotsUseC
     @Override
     @Transactional
     public List<BookableTimeSlot> getBookableTimeSlotsFor(final LocalDate date) {
-        final LocalDateTime now = LocalDateTime.now(clock);
         LOGGER.info("Getting Bookable Time Slots for date {} at {}", date, KDG);
         final DailySchedule dailySchedule = loadDailySchedulePort.loadDailyScheduleByDate(date).orElseThrow(
             () -> DailyScheduleNotAvailableException.forDate(date)
         );
         return dailySchedule.getTimeSlots()
             .stream()
-            .filter(slot -> slot.isBookableAt(now))
+            .filter(slot -> slot.isBookableAt(LocalDateTime.now(clock)))
             .sorted(Comparator.comparing(TimeSlot::getStartTime))
             .map(BookableTimeSlot::fromDomain)
             .toList();

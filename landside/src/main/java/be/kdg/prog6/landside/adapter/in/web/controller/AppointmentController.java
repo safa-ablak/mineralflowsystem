@@ -87,7 +87,7 @@ public class AppointmentController {
         );
         final List<BookableTimeSlotDto> bookableTimeSlotDtos = bookableTimeSlots
             .stream()
-            .map(BookableTimeSlotDto::of)
+            .map(BookableTimeSlotDto::from)
             .toList();
         return ResponseEntity.ok(bookableTimeSlotDtos);
     }

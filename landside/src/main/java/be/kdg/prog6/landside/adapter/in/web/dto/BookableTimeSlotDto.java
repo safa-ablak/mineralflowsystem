@@ -9,7 +9,7 @@ public record BookableTimeSlotDto(
     LocalDateTime endTime,
     int remainingSpots
 ) {
-    public static BookableTimeSlotDto of(final BookableTimeSlot slot) {
+    public static BookableTimeSlotDto from(final BookableTimeSlot slot) {
         return new BookableTimeSlotDto(
             slot.startTime(),
             slot.endTime(),
