@@ -58,7 +58,6 @@ public class TimeSlot {
         return appointments.stream().filter(Appointment::isActive).toList();
     }
 
-    // Add appointment to the time slot, only if there is available capacity
     public void addAppointment(final Appointment appointment) {
         if (!hasRemainingSpots()) {
             throw new InvalidOperationException("No remaining spots in this Time Slot");
@@ -66,7 +65,6 @@ public class TimeSlot {
         appointments.add(appointment);
     }
 
-    // Method to check if a given time is within this time slot
     public boolean contains(final LocalDateTime time) {
         return !time.isBefore(startTime) && time.isBefore(endTime);
     }
