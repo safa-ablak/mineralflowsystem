@@ -8,5 +8,4 @@ import java.math.BigDecimal;
 public record RawMaterialSummary(
     RawMaterial rawMaterial,
     BigDecimal totalAmount
-) {
-}
+) {}

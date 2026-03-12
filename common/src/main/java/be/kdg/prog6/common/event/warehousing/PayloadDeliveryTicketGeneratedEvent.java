@@ -9,5 +9,4 @@ public record PayloadDeliveryTicketGeneratedEvent(
     String rawMaterial,
     LocalDateTime generationTime,
     String dockNumber
-) {
-}
+) {}

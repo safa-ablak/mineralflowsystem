@@ -7,5 +7,4 @@ public record WarehouseStorageReport(
     UUID warehouseId,
     String rawMaterial,
     List<StorageEntry> storageEntries
-) {
-}
+) {}

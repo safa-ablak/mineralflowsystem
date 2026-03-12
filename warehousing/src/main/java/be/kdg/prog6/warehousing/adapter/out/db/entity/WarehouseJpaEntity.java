@@ -52,8 +52,7 @@ public class WarehouseJpaEntity {
     @Embedded
     private SiteLocationEmbeddable siteLocation;
 
-    public WarehouseJpaEntity() {
-    }
+    public WarehouseJpaEntity() {}
 
     public UUID getWarehouseId() {
         return warehouseId;

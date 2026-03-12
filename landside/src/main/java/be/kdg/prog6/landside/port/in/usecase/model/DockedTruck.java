@@ -10,5 +10,4 @@ public record DockedTruck(
     TruckLicensePlate truckLicensePlate,
     String dockNumber,
     String weighBridgeNumber
-) {
-}
+) {}

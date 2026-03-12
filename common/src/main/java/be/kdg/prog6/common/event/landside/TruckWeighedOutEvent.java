@@ -6,5 +6,4 @@ import java.util.UUID;
 public record TruckWeighedOutEvent(
     UUID warehouseId,
     BigDecimal netWeight
-) {
-}
+) {}

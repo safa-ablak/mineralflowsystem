@@ -4,5 +4,4 @@ import jakarta.validation.constraints.NotNull;
 
 public record InspectShipDto(
     @NotNull String inspectorSignature
-) {
-}
+) {}

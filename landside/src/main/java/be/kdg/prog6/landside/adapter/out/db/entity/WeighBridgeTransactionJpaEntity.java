@@ -34,8 +34,7 @@ public class WeighBridgeTransactionJpaEntity {
     @Column(name = "weigh_out_time", nullable = true)
     private LocalDateTime weighOutTime;
 
-    public WeighBridgeTransactionJpaEntity() {
-    }
+    public WeighBridgeTransactionJpaEntity() {}
 
     public WeighBridgeTransactionJpaEntity(final UUID transactionId) {
         this.transactionId = transactionId;

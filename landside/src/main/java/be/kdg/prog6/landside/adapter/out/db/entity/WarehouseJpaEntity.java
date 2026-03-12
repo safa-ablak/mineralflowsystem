@@ -26,8 +26,7 @@ public class WarehouseJpaEntity {
     @Column(name = "is_available")
     private boolean available;
 
-    public WarehouseJpaEntity() {
-    }
+    public WarehouseJpaEntity() {}
 
     public WarehouseJpaEntity(final UUID warehouseId) {
         this.warehouseId = warehouseId;

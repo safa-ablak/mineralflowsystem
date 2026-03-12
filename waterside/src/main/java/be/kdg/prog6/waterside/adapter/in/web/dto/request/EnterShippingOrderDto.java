@@ -12,5 +12,4 @@ public record EnterShippingOrderDto(
     @NotNull String vesselNumber,
     @Future LocalDateTime scheduledArrivalDate,
     @Future LocalDateTime scheduledDepartureDate
-) {
-}
+) {}

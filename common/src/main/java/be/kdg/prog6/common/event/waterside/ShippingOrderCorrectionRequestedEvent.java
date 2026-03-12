@@ -7,5 +7,4 @@ public record ShippingOrderCorrectionRequestedEvent(
     UUID shippingOrderId,
     UUID referenceId, // to the PO
     String vesselNumber // unchanged – propagated from the existing SO, not part of the correction
-) {
-}
+) {}

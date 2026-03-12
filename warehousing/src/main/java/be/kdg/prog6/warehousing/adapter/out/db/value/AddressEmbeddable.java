@@ -9,8 +9,7 @@ public class AddressEmbeddable {
     private String city;
     private String country;
 
-    public AddressEmbeddable() {
-    }
+    public AddressEmbeddable() {}
 
     public AddressEmbeddable(final String streetName, final String streetNumber, final String city, final String country) {
         this.streetName = streetName;

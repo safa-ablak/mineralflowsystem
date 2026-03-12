@@ -12,12 +12,10 @@ public record SiteConfigurationProperties(
         double maxEasting,
         double minNorthing,
         double maxNorthing
-    ) {
-    }
+    ) {}
 
     public record WarehouseFootprintProperties(
         double width,
         double height
-    ) {
-    }
+    ) {}
 }

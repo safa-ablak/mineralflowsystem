@@ -9,5 +9,4 @@ public record DeliveryRecordedEvent(
     String rawMaterial, // which raw material the warehouse is storing (just informational)
     BigDecimal amountDelivered, // (just informational)
     BigDecimal percentageFilled // current warehouse % filled after delivery
-) {
-}
+) {}

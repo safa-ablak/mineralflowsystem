@@ -7,5 +7,4 @@ public record SiteConfigDto(
     double maxNorthing,
     double warehouseWidth,
     double warehouseHeight
-) {
-}
+) {}

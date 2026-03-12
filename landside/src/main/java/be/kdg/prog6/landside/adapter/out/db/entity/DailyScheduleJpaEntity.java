@@ -20,8 +20,7 @@ public class DailyScheduleJpaEntity {
     @OneToMany(mappedBy = "dailySchedule", cascade = CascadeType.ALL)
     private List<TimeSlotJpaEntity> timeSlots = new ArrayList<>();
 
-    public DailyScheduleJpaEntity() {
-    }
+    public DailyScheduleJpaEntity() {}
 
     public DailyScheduleJpaEntity(final LocalDate date) {
         this.date = date;

@@ -16,6 +16,5 @@ public record MakeAppointmentDto(
     String rawMaterial,
     @NotNull(message = "Scheduled arrival time is required")
     LocalDateTime scheduledArrivalTime
-) {
-}
+) {}
 

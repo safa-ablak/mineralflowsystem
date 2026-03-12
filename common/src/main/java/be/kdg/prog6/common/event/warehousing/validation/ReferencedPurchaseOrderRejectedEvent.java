@@ -6,5 +6,4 @@ import java.util.UUID;
 public record ReferencedPurchaseOrderRejectedEvent(
     UUID purchaseOrderId,
     String reason
-) {
-}
+) {}

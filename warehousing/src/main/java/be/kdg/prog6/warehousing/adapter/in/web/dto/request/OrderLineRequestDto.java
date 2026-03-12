@@ -9,5 +9,4 @@ public record OrderLineRequestDto(
     String rawMaterial,
     @NotNull(message = "Amount is required")
     BigDecimal amount
-) {
-}
+) {}

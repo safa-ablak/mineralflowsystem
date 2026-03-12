@@ -8,5 +8,4 @@ import java.math.BigDecimal;
 public record UpdateRawMaterialPricingDto(
     @Nullable @Positive BigDecimal storagePricePerTonPerDay,
     @Nullable @Positive BigDecimal unitPricePerTon
-) {
-}
+) {}

@@ -46,8 +46,7 @@ public class AppointmentJpaEntity {
     @Column(name = "status", nullable = false)
     private AppointmentStatus status;
 
-    public AppointmentJpaEntity() {
-    }
+    public AppointmentJpaEntity() {}
 
     public UUID getAppointmentId() {
         return appointmentId;

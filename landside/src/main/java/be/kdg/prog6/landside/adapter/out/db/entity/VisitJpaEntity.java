@@ -52,8 +52,7 @@ public class VisitJpaEntity {
     @Column(name = "status", nullable = false)
     private VisitStatus status;
 
-    public VisitJpaEntity() {
-    }
+    public VisitJpaEntity() {}
 
     public VisitJpaEntity(final UUID visitId) {
         this.visitId = visitId;

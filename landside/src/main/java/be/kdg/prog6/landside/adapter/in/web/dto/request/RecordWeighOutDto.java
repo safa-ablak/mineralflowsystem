@@ -10,5 +10,4 @@ public record RecordWeighOutDto(
     String truckLicensePlate,
     @Positive(message = "Tare weight must be greater than 0")
     BigDecimal tareWeight
-) {
-}
+) {}

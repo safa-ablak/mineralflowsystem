@@ -11,8 +11,7 @@ public class SiteLocationEmbeddable {
     @Column(name = "site_northing")
     private double northing;
 
-    protected SiteLocationEmbeddable() {
-    }
+    protected SiteLocationEmbeddable() {}
 
     public SiteLocationEmbeddable(final double easting, final double northing) {
         this.easting = easting;

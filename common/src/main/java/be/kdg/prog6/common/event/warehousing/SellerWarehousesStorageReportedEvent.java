@@ -6,5 +6,4 @@ import java.util.UUID;
 public record SellerWarehousesStorageReportedEvent(
     UUID sellerId,
     List<WarehouseStorageReport> warehouseStorageReports
-) {
-}
+) {}

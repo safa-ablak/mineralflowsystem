@@ -11,5 +11,4 @@ package be.kdg.prog6.common.facade;
  * <p>
  * Example: Landside BC -> Warehousing BC
  */
-public record CommandFromBoundedContextAToBoundedContextB() {
-}
+public record CommandFromBoundedContextAToBoundedContextB() {}

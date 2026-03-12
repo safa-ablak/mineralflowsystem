@@ -10,5 +10,4 @@ public record RecordWeighInDto(
     String truckLicensePlate,
     @Positive(message = "Gross weight must be greater than 0")
     BigDecimal grossWeight
-) {
-}
+) {}

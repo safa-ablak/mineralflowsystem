@@ -5,5 +5,4 @@ import java.util.UUID;
 public record ShipDepartedEvent(
     UUID shippingOrderId, // May not be used, but doesn't hurt to have it.
     UUID referenceId
-) {
-}
+) {}

@@ -13,8 +13,7 @@ public class MonetaryValueEmbeddable {
     @Column(name = "currency", nullable = false, length = 3)
     private String currency; // ISO 4217 currency code (e.g., "USD").
 
-    protected MonetaryValueEmbeddable() {
-    }
+    protected MonetaryValueEmbeddable() {}
 
     public MonetaryValueEmbeddable(final BigDecimal amount, final String currency) {
         this.amount = amount;

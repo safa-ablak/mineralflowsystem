@@ -5,5 +5,4 @@ import jakarta.validation.constraints.NotBlank;
 public record ConsolidateTruckAtExitGateDto(
     @NotBlank(message = "Truck license plate is required")
     String truckLicensePlate
-) {
-}
+) {}

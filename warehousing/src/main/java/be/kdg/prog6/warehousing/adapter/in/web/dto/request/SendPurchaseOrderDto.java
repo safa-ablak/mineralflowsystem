@@ -14,5 +14,4 @@ public record SendPurchaseOrderDto(
     UUID sellerId,
     @NotEmpty(message = "Order lines cannot be empty")
     List<OrderLineRequestDto> orderLines
-) {
-}
+) {}

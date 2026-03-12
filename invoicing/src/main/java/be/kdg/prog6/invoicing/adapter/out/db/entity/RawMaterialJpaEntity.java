@@ -32,8 +32,7 @@ public class RawMaterialJpaEntity {
     })
     private MonetaryValueEmbeddable unitPrice;
 
-    public RawMaterialJpaEntity() {
-    }
+    public RawMaterialJpaEntity() {}
 
     public RawMaterialJpaEntity(final UUID id, final String name, final MonetaryValueEmbeddable storagePrice, final MonetaryValueEmbeddable unitPrice) {
         this.id = id;

@@ -24,8 +24,7 @@ public class WeighBridgeJpaEntity {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID occupiedByVisitId;
 
-    public WeighBridgeJpaEntity() {
-    }
+    public WeighBridgeJpaEntity() {}
 
     public WeighBridgeJpaEntity(final UUID weighBridgeId, final String number) {
         this.weighBridgeId = weighBridgeId;

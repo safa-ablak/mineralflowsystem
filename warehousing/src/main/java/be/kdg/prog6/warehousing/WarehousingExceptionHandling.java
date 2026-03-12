@@ -28,6 +28,5 @@ public class WarehousingExceptionHandling {
             .body(new ErrorDto(ex.getMessage()));
     }
 
-    public record ErrorDto(String message) {
-    }
+    public record ErrorDto(String message) {}
 }

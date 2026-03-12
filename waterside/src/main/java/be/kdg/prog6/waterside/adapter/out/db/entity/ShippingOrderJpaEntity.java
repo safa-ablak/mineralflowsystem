@@ -52,8 +52,7 @@ public class ShippingOrderJpaEntity {
     @JoinColumn(name = "bunkering_operation_id")
     private BunkeringOperationJpaEntity bunkeringOperation;
 
-    public ShippingOrderJpaEntity() {
-    }
+    public ShippingOrderJpaEntity() {}
 
     public UUID getShippingOrderId() {
         return shippingOrderId;

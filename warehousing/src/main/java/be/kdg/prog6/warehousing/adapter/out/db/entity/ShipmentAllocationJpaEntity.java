@@ -16,8 +16,7 @@ public class ShipmentAllocationJpaEntity {
     @Column(name = "amount_allocated", nullable = false)
     private BigDecimal amountAllocated;
 
-    public ShipmentAllocationJpaEntity() {
-    }
+    public ShipmentAllocationJpaEntity() {}
 
     public ShipmentAllocationJpaId getId() {
         return id;

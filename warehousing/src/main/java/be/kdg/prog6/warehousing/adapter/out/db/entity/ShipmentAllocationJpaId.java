@@ -26,8 +26,7 @@ public class ShipmentAllocationJpaId implements Serializable {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID deliveryId;
 
-    public ShipmentAllocationJpaId() {
-    }
+    public ShipmentAllocationJpaId() {}
 
     public ShipmentAllocationJpaId(final UUID warehouseId, final UUID shipmentId, final UUID deliveryId) {
         this.warehouseId = warehouseId;

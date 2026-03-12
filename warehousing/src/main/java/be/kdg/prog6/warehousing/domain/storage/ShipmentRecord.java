@@ -11,5 +11,4 @@ import java.util.List;
 public record ShipmentRecord(
     Shipment shipment,
     List<ShipmentAllocation> allocations
-) {
-}
+) {}

@@ -17,5 +17,4 @@ public record StoredDeliveryRemainder(
     DeliveryId deliveryId,
     BigDecimal remainingAmount,
     int daysStored
-) {
-}
+) {}

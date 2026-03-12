@@ -6,5 +6,4 @@ public record TruckDockedEvent(
     UUID warehouseId,
     String dockNumber,
     String rawMaterial
-) {
-}
+) {}

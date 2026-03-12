@@ -27,8 +27,7 @@ public class InvoiceLineJpaEntity {
     @Column(name = "type", nullable = false)
     private InvoiceLineType type;
 
-    public InvoiceLineJpaEntity() {
-    }
+    public InvoiceLineJpaEntity() {}
 
     public InvoiceLineJpaEntity(final UUID id, final MonetaryValueEmbeddable amount, final InvoiceLineType type) {
         this.id = id;

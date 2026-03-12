@@ -10,5 +10,4 @@ public record NetBalanceChange(
     LocalDateTime from,
     LocalDateTime to,
     BigDecimal netBalanceChange
-) {
-}
+) {}

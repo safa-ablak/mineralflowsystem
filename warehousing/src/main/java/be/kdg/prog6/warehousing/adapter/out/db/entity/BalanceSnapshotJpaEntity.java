@@ -51,8 +51,7 @@ public class BalanceSnapshotJpaEntity {
      * - Precision: 12 total digits, 4 after the decimal point
      */
 
-    public BalanceSnapshotJpaEntity() {
-    }
+    public BalanceSnapshotJpaEntity() {}
 
     public BalanceSnapshotJpaEntity(final UUID warehouseId, final LocalDateTime snapshotTime, final BigDecimal balance) {
         this.warehouseId = warehouseId;
