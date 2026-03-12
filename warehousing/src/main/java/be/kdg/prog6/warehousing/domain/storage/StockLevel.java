@@ -6,9 +6,8 @@ import java.math.RoundingMode;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Immutable Value Object representing a warehouse's stock level at a point in time.
- * Encapsulates both the balance and the derived percentage filled,
- * ensuring the percentage is calculated exactly once.
+ * Immutable Value Object that co-locates a warehouse's balance with its derived percentage filled,
+ * avoiding the need to recalculate the percentage or pass both values separately.
  */
 public record StockLevel(
     Balance balance,

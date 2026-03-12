@@ -34,8 +34,8 @@ public class TestSecurityConfig {
             .sessionManagement(session ->
                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
-            .exceptionHandling(exceptions ->
-                exceptions.authenticationEntryPoint((request, response, authException) ->
+            .exceptionHandling(exceptionHandling ->
+                exceptionHandling.authenticationEntryPoint((request, response, authException) ->
                     response.sendError(HttpStatus.UNAUTHORIZED.value())
                 )
             )
