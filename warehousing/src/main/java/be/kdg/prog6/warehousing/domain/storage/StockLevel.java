@@ -7,7 +7,8 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Immutable Value Object that co-locates a warehouse's balance with its derived percentage filled,
- * avoiding the need to recalculate the percentage or pass both values separately.
+ * avoiding the need to replay balance events or access warehouse capacity externally
+ * to determine the fill level.
  */
 public record StockLevel(
     Balance balance,
