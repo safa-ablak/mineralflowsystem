@@ -102,13 +102,36 @@ grant_type=password
 #Authorization: Bearer {{warehouse_manager_access_token}}
 ##Authorization: Bearer {{admin_access_token}}
 #
-#### • **As a buyer**, I want to send a Purchase Order to KdG to make sure they can expect a shipment soon.
+##### • **As a buyer**, I want to send a Purchase Order to KdG to make sure they can expect a shipment soon.
+#
+#### As buyer (buyerId taken from JWT)
 #POST http://localhost:8090/api/purchase-orders
 #Content-Type: application/json
 #Authorization: Bearer {{buyer_access_token}}
-##Authorization: Bearer {{admin_access_token}}
 #
 #{
+#  "sellerId": "23f11460-22bb-4888-b52a-2c5f6c9d1ea5",
+#  "orderLines":
+#  [
+#    {
+#      "rawMaterial": "PETCOKE",
+#      "amount": 1
+#    }
+#  ]
+#}
+#
+#> {%
+#    client.global.set("purchaseOrderId", response.body.purchaseOrderId);
+#%}
+#
+#
+#### As admin on behalf of buyer (buyerId must be provided in body, as it's not taken from JWT)
+#POST http://localhost:8090/api/purchase-orders
+#Content-Type: application/json
+#Authorization: Bearer {{admin_access_token}}
+#
+#{
+#  "buyerId": "0e2ee25f-0ada-4727-8c50-6e2c305fa345",
 #  "sellerId": "23f11460-22bb-4888-b52a-2c5f6c9d1ea5",
 #  "orderLines":
 #  [
