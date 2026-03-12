@@ -1,4 +1,4 @@
-# All timestamps must be in UTC (e.g. Brussels = UTC+1, so 10:00 local = 09:00 UTC)
+# All timestamps must be in UTC (e.g. Brussels is UTC+1 in winter, UTC+2 in summer)
 
 ### Reusable IDs
 @warehouseId = cd37c514-7cd6-4031-8130-854ffaeee00b

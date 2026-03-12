@@ -1,4 +1,4 @@
-# All timestamps must be in UTC (e.g. Brussels = UTC+1, so 10:00 local = 09:00 UTC)
+# All timestamps must be in UTC (e.g. Brussels is UTC+1 in winter, UTC+2 in summer)
 
 ### **Get Access Token for Waterside - ADMIN**
 POST http://localhost:8180/realms/mineralflow/protocol/openid-connect/token
