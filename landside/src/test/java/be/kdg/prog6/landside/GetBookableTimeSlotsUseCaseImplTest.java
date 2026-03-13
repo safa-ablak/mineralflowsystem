@@ -73,7 +73,7 @@ class GetBookableTimeSlotsUseCaseImplTest {
 
     private static DailySchedule createScheduleWithPastOngoingAndUpcomingTimeSlots() {
         return new DailySchedule(TEST_DATE, List.of(
-            createTimeSlot(SLOT_1_START, SLOT_1_END), // ends before now (past = not available)
+            createTimeSlot(SLOT_1_START, SLOT_1_END), // ends before now (past = not bookable)
             createTimeSlot(SLOT_2_START, SLOT_2_END), // ends after now (ongoing)
             createTimeSlot(SLOT_3_START, SLOT_3_END)  // ends after now (future)
         ));

@@ -62,7 +62,7 @@ public class AppointmentController {
         final MakeAppointmentCommand command = new MakeAppointmentCommand(
             supplierId,
             new TruckLicensePlate(request.truckLicensePlate()),
-            RawMaterial.fromString(request.rawMaterial()), // Validate and convert raw material
+            RawMaterial.fromString(request.rawMaterial()),
             request.scheduledArrivalTime()
         );
         final Appointment appointment = makeAppointmentUseCase.makeAppointment(command);
