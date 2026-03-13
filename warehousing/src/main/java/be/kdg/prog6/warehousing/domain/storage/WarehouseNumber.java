@@ -6,11 +6,11 @@ import static java.util.Objects.requireNonNull;
 
 /**
  * Value Object.
- * Represents a strongly typed warehouse number (e.g., WH-01, WH-42).
+ * Represents a strongly typed warehouse number (e.g., WH-01).
  * Validates the format on creation.
  */
 public record WarehouseNumber(String value) {
-    private static final Pattern WH_NO_PATTERN = Pattern.compile("^WH-\\d{2}$"); // e.g., WH-01, WH-10
+    private static final Pattern WH_NO_PATTERN = Pattern.compile("^WH-\\d{2}$");
 
     public WarehouseNumber {
         requireNonNull(value, "Warehouse number cannot be null");

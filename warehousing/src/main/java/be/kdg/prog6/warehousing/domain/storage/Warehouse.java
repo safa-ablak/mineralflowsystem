@@ -167,10 +167,6 @@ public class Warehouse {
         return warehouseNumber;
     }
 
-    public StockLedger getStockLedger() {
-        return stockLedger;
-    }
-
     private void setRawMaterial(final RawMaterial rawMaterial) {
         this.rawMaterial = rawMaterial;
     }

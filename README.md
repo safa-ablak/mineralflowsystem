@@ -166,7 +166,7 @@ To see notes and assumptions made in the project, see the separate file: [Notes 
 
 ## Implemented User Stories
 
-For the full backlog and user stories, see the [Issue Board](https://github.com/huseyin-ablak/mineralflowsystem/issues).
+For the full backlog and user stories, see the [Issue Board](https://github.com/safa-ablak/mineralflowsystem/issues).
 
 ---
 
