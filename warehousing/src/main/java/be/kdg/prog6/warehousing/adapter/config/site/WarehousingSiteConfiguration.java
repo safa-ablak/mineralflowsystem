@@ -1,6 +1,5 @@
-package be.kdg.prog6.warehousing.adapter.config;
+package be.kdg.prog6.warehousing.adapter.config.site;
 
-import be.kdg.prog6.warehousing.adapter.config.site.SiteConfigurationProperties;
 import be.kdg.prog6.warehousing.domain.storage.SiteBounds;
 import be.kdg.prog6.warehousing.domain.storage.WarehouseFootprint;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
