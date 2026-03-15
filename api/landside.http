@@ -56,8 +56,8 @@ grant_type=password
     client.global.set("warehouse_manager_access_token", response.body.access_token);
 %}
 
-#### • **As a seller**, I want to see the available time slots for a specific day to see if I can book an appointment.
-#GET http://localhost:8090/api/appointments/available-time-slots?date=2026-03-03
+#### • **As a seller**, I want to see the bookable time slots for a specific day to see if I can book an appointment.
+#GET http://localhost:8090/api/appointments/bookable-time-slots?date=2026-03-03
 #Accept: application/json
 #Authorization: Bearer {{seller_access_token}}
 ##Authorization: Bearer {{admin_access_token}}

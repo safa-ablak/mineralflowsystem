@@ -74,7 +74,7 @@ public class AppointmentController {
      * 📘 - User Story<br></br>
      * As a <b>seller</b>, I want to see the bookable time slots for a specific day to see if I can book an appointment.
      */
-    @GetMapping("/available-time-slots")
+    @GetMapping("/bookable-time-slots")
     @PreAuthorize("hasAnyRole('ROLE_SELLER', 'ROLE_ADMIN')")
     public ResponseEntity<List<BookableTimeSlotDto>> getBookableTimeSlotsByDate(
         @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) final LocalDate date,
