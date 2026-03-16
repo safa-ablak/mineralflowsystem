@@ -134,10 +134,10 @@ public class Appointment {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Appointment other)) return false;
-        return appointmentId.equals(other.appointmentId);
+    public boolean equals(final Object other) {
+        if (this == other) return true;
+        if (!(other instanceof Appointment that)) return false;
+        return appointmentId.equals(that.appointmentId);
     }
 
     @Override
