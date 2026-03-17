@@ -2,7 +2,6 @@ package be.kdg.prog6.warehousing.adapter.in.web.controller;
 
 import be.kdg.prog6.warehousing.domain.BuyerId;
 import be.kdg.prog6.warehousing.port.out.BuyerProfilePicturePort;
-import be.kdg.prog6.warehousing.port.out.ProfilePicture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;

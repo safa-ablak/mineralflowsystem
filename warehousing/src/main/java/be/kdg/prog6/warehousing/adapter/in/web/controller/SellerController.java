@@ -1,7 +1,6 @@
 package be.kdg.prog6.warehousing.adapter.in.web.controller;
 
 import be.kdg.prog6.warehousing.domain.SellerId;
-import be.kdg.prog6.warehousing.port.out.ProfilePicture;
 import be.kdg.prog6.warehousing.port.out.SellerProfilePicturePort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
