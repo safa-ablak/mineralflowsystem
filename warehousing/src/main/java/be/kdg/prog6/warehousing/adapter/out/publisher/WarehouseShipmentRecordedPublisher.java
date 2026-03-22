@@ -1,6 +1,6 @@
 package be.kdg.prog6.warehousing.adapter.out.publisher;
 
-import be.kdg.prog6.common.event.warehousing.ShipmentRecordedAtWarehouseEvent;
+import be.kdg.prog6.common.event.warehousing.WarehouseShipmentRecordedEvent;
 import be.kdg.prog6.warehousing.adapter.config.WarehousingMessagingTopology;
 import be.kdg.prog6.warehousing.domain.storage.ShipmentRecord;
 import be.kdg.prog6.warehousing.domain.storage.StockLevel;
@@ -31,7 +31,7 @@ public class WarehouseShipmentRecordedPublisher implements ShipmentRecordedPort 
         rabbitTemplate.convertAndSend(
             WarehousingMessagingTopology.WAREHOUSING_EVENTS_EXCHANGE,
             routingKey,
-            new ShipmentRecordedAtWarehouseEvent(
+            new WarehouseShipmentRecordedEvent(
                 warehouse.getWarehouseId().id(),
                 warehouse.getSellerId().id(),
                 warehouse.getRawMaterial().name(),

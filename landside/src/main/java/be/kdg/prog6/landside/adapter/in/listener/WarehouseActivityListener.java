@@ -1,7 +1,7 @@
 package be.kdg.prog6.landside.adapter.in.listener;
 
-import be.kdg.prog6.common.event.warehousing.DeliveryRecordedAtWarehouseEvent;
-import be.kdg.prog6.common.event.warehousing.ShipmentRecordedAtWarehouseEvent;
+import be.kdg.prog6.common.event.warehousing.WarehouseDeliveryRecordedEvent;
+import be.kdg.prog6.common.event.warehousing.WarehouseShipmentRecordedEvent;
 import be.kdg.prog6.landside.domain.WarehouseId;
 import be.kdg.prog6.landside.port.in.command.ProjectAvailabilityCommand;
 import be.kdg.prog6.landside.port.in.projector.WarehouseAvailabilityProjector;
@@ -24,7 +24,7 @@ public class WarehouseActivityListener { // Listens for warehouse activities (de
     }
 
     @RabbitListener(queues = RECORDED_WAREHOUSE_DELIVERIES_QUEUE)
-    public void onDeliveryRecorded(final DeliveryRecordedAtWarehouseEvent event) {
+    public void onWarehouseDeliveryRecorded(final WarehouseDeliveryRecordedEvent event) {
         LOGGER.info(
             "Delivery recorded at Warehouse {} of Supplier {} storing Raw Material {} with Amount of {}",
             event.warehouseId(),
@@ -40,7 +40,7 @@ public class WarehouseActivityListener { // Listens for warehouse activities (de
     }
 
     @RabbitListener(queues = RECORDED_WAREHOUSE_SHIPMENTS_QUEUE)
-    public void onShipmentRecorded(final ShipmentRecordedAtWarehouseEvent event) {
+    public void onWarehouseShipmentRecorded(final WarehouseShipmentRecordedEvent event) {
         LOGGER.info(
             "Shipment recorded at Warehouse {} of Supplier {} storing Raw Material {} with Amount of {}",
             event.warehouseId(),
