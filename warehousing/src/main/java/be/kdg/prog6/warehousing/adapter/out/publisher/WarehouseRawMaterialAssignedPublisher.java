@@ -1,6 +1,6 @@
 package be.kdg.prog6.warehousing.adapter.out.publisher;
 
-import be.kdg.prog6.common.event.warehousing.RawMaterialAssignedToWarehouseEvent;
+import be.kdg.prog6.common.event.warehousing.WarehouseRawMaterialAssignedEvent;
 import be.kdg.prog6.warehousing.adapter.config.WarehousingMessagingTopology;
 import be.kdg.prog6.warehousing.domain.storage.Warehouse;
 import be.kdg.prog6.warehousing.port.out.RawMaterialAssignedPort;
@@ -10,12 +10,12 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RawMaterialAssignedToWarehousePublisher implements RawMaterialAssignedPort {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RawMaterialAssignedToWarehousePublisher.class);
+public class WarehouseRawMaterialAssignedPublisher implements RawMaterialAssignedPort {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WarehouseRawMaterialAssignedPublisher.class);
 
     private final RabbitTemplate rabbitTemplate;
 
-    public RawMaterialAssignedToWarehousePublisher(final RabbitTemplate rabbitTemplate) {
+    public WarehouseRawMaterialAssignedPublisher(final RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
@@ -26,7 +26,7 @@ public class RawMaterialAssignedToWarehousePublisher implements RawMaterialAssig
         rabbitTemplate.convertAndSend(
             WarehousingMessagingTopology.WAREHOUSING_EVENTS_EXCHANGE,
             routingKey,
-            new RawMaterialAssignedToWarehouseEvent(
+            new WarehouseRawMaterialAssignedEvent(
                 warehouse.getWarehouseId().id(),
                 warehouse.getRawMaterial().name()
             )

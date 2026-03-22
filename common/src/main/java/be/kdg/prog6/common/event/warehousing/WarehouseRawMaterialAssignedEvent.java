@@ -11,7 +11,7 @@ import java.util.UUID;
  * <p>When the Landside BC receives this event, any scheduled appointments targeting this warehouse
  * whose raw material no longer matches are automatically cancelled.
  */
-public record RawMaterialAssignedToWarehouseEvent(
+public record WarehouseRawMaterialAssignedEvent(
     UUID warehouseId,
     String rawMaterial
 ) {}

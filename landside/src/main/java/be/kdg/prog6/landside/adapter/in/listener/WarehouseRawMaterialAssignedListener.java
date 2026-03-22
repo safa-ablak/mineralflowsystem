@@ -1,6 +1,6 @@
 package be.kdg.prog6.landside.adapter.in.listener;
 
-import be.kdg.prog6.common.event.warehousing.RawMaterialAssignedToWarehouseEvent;
+import be.kdg.prog6.common.event.warehousing.WarehouseRawMaterialAssignedEvent;
 import be.kdg.prog6.landside.domain.RawMaterial;
 import be.kdg.prog6.landside.domain.WarehouseId;
 import be.kdg.prog6.landside.port.in.command.CancelMismatchedAppointmentsForWarehouseCommand;
@@ -16,20 +16,20 @@ import static be.kdg.prog6.common.BoundedContext.LANDSIDE;
 import static be.kdg.prog6.landside.adapter.config.LandsideMessagingTopology.RAW_MATERIAL_ASSIGNED_WAREHOUSES_QUEUE;
 
 @Component
-public class RawMaterialAssignedToWarehouseListener {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RawMaterialAssignedToWarehouseListener.class);
+public class WarehouseRawMaterialAssignedListener {
+    private static final Logger LOGGER = LoggerFactory.getLogger(WarehouseRawMaterialAssignedListener.class);
 
     private final WarehouseRawMaterialProjector warehouseRawMaterialProjector;
     private final CancelMismatchedAppointmentsForWarehouseUseCase cancelMismatchedAppointmentsForWarehouseUseCase;
 
-    public RawMaterialAssignedToWarehouseListener(final WarehouseRawMaterialProjector warehouseRawMaterialProjector,
-                                                  final CancelMismatchedAppointmentsForWarehouseUseCase cancelMismatchedAppointmentsForWarehouseUseCase) {
+    public WarehouseRawMaterialAssignedListener(final WarehouseRawMaterialProjector warehouseRawMaterialProjector,
+                                                 final CancelMismatchedAppointmentsForWarehouseUseCase cancelMismatchedAppointmentsForWarehouseUseCase) {
         this.warehouseRawMaterialProjector = warehouseRawMaterialProjector;
         this.cancelMismatchedAppointmentsForWarehouseUseCase = cancelMismatchedAppointmentsForWarehouseUseCase;
     }
 
     @RabbitListener(queues = RAW_MATERIAL_ASSIGNED_WAREHOUSES_QUEUE)
-    public void onRawMaterialAssigned(final RawMaterialAssignedToWarehouseEvent event) {
+    public void onWarehouseRawMaterialAssigned(final WarehouseRawMaterialAssignedEvent event) {
         LOGGER.info(
             "Received {} at {} for Warehouse {}",
             event.getClass().getSimpleName(),
