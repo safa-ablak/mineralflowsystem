@@ -8,6 +8,7 @@ import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseShipmentJpaRe
 import be.kdg.prog6.warehousing.adapter.out.db.value.SiteLocationEmbeddable;
 import be.kdg.prog6.warehousing.domain.SellerId;
 import be.kdg.prog6.warehousing.domain.storage.*;
+import be.kdg.prog6.warehousing.domain.storage.Balance;
 import be.kdg.prog6.warehousing.port.in.usecase.query.readmodel.BalanceSnapshot;
 import be.kdg.prog6.warehousing.port.out.*;
 import org.slf4j.Logger;
@@ -127,11 +128,12 @@ public class WarehouseDatabaseAdapter
         final UUID id = warehouse.getWarehouseId().id();
         final WarehouseJpaEntity warehouseJpaEntity = warehouseJpaRepository.findById(id).orElseThrow();
         final StockLevel stockLevel = warehouse.calculateStockLevel();
-        warehouseJpaEntity.setBalance(stockLevel.balance().amount());
-        warehouseJpaEntity.setBalanceUpdatedAt(warehouse.getBaseBalance().time());
+        final Balance balance = stockLevel.balance();
+        warehouseJpaEntity.setBalance(balance.amount());
+        warehouseJpaEntity.setBalanceUpdatedAt(balance.time());
         warehouseJpaEntity.setPercentageFilled(stockLevel.percentageFilled());
         final BalanceSnapshot balanceSnapshot = new BalanceSnapshot(
-            warehouse.getWarehouseId(), warehouse.getBaseBalance().time(), stockLevel.balance().amount()
+            warehouse.getWarehouseId(), balance.time(), balance.amount()
         );
         balanceSnapshotPort.saveBalanceSnapshot(balanceSnapshot);
         warehouseJpaRepository.save(warehouseJpaEntity);
