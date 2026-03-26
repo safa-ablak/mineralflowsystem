@@ -41,6 +41,15 @@ Each bounded context is structured as a **hexagonal (ports & adapters)** module,
 - **`adapter/in/`** – Inbound adapters: REST controllers and message listeners (RabbitMQ) that drive the application.
 - **`adapter/out/`** – Outbound adapters: JPA repositories and event publishers that implement outbound ports.
 
+### Activity-Sourced Ledger (Warehousing Context)
+The Warehousing bounded context tracks warehouse stock levels through an **append-only activity ledger** rather than mutable state. Every delivery and shipment is recorded as an immutable entry in the `StockLedger`, and the current balance is derived by replaying these entries on top of a stored snapshot.
+
+Key elements of this approach:
+- **StockLedger** – An append-only ledger of `Delivery`, `Shipment`, and `ShipmentAllocation` records. The current balance is calculated by summing activity deltas on top of a `baseBalance` snapshot.
+- **Snapshot optimization** – Periodic snapshots collapse the computed balance into a new `baseBalance`, so only activities recorded after the last snapshot need to be replayed.
+- **FIFO shipment allocation** – When raw materials are shipped, the system allocates from the oldest unshipped deliveries first. `ShipmentAllocation` records link each shipment back to the specific deliveries it drew from, providing full traceability.
+- **Tailored loading strategies** – The database adapter provides multiple reconstruction paths depending on the use case: recent activities only (for balance queries), all activities with optional Delivery-Shipment traceability (for drill-down views), all deliveries with allocations (for FIFO shipment recording and storage reporting), and time-windowed activities (for net balance change reports).
+
 ---
 
 ## 📑 Table of Contents

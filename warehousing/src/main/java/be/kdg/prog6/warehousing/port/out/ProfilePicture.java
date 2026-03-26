@@ -9,8 +9,8 @@ package be.kdg.prog6.warehousing.port.out;
  * port and adapter layers.
  *
  * <p>Per ADR-2, if storage moves to an external service (S3/MinIO/Azure Blob),
- * this record would be replaced by a {@code ProfilePictureId} value object in the
- * domain, and the web adapter would resolve it to a URL.
+ * a {@code FileStoragePort} adapter would handle persistence, and the web adapter
+ * would resolve stored references to URLs when building responses.
  *
  * @param content     the image bytes
  * @param contentType the MIME type (e.g. {@code image/png})
