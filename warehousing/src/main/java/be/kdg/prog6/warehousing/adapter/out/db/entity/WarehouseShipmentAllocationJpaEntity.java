@@ -8,21 +8,21 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 
 @Entity
-@Table(catalog = "warehousing", name = "shipment_allocations")
-public class ShipmentAllocationJpaEntity {
+@Table(catalog = "warehousing", name = "warehouse_shipment_allocations")
+public class WarehouseShipmentAllocationJpaEntity {
     @EmbeddedId
-    private ShipmentAllocationJpaId id;
+    private WarehouseShipmentAllocationJpaId id;
 
     @Column(name = "amount_allocated", nullable = false)
     private BigDecimal amountAllocated;
 
-    public ShipmentAllocationJpaEntity() {}
+    public WarehouseShipmentAllocationJpaEntity() {}
 
-    public ShipmentAllocationJpaId getId() {
+    public WarehouseShipmentAllocationJpaId getId() {
         return id;
     }
 
-    public void setId(final ShipmentAllocationJpaId id) {
+    public void setId(final WarehouseShipmentAllocationJpaId id) {
         this.id = id;
     }
 

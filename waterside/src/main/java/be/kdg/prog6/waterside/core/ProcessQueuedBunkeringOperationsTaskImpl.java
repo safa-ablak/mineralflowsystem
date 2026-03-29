@@ -44,14 +44,14 @@ public class ProcessQueuedBunkeringOperationsTaskImpl implements ProcessQueuedBu
 //    @Scheduled(cron = "0 * * * * *", zone = "Europe/Brussels") // For testing purposes, every minute.
     @Transactional
     public void processQueuedBunkeringOperations() { // FIFO
-        final LocalDate processingDate = LocalDate.now(clock);
-        LOGGER.info("Scheduled Bunkering Operation processing started at {} on {}", KDG, processingDate);
+        final LocalDate today = LocalDate.now(clock);
+        LOGGER.info("Scheduled Bunkering Operation processing started at {} on {}", KDG, today);
         int bunkeringOperationsProcessed = 0;
 
         final List<ShippingOrder> orders =
             loadShippingOrderPort.loadShippingOrdersWithQueuedBunkeringByOldestFirst();
         final int dailyOperationCount =
-            bunkeringOperationQueryPort.countPerformedBunkeringOperationsByDate(processingDate);
+            bunkeringOperationQueryPort.countPerformedBunkeringOperationsByDate(today);
 
         for (ShippingOrder order : orders) {
             final boolean canPerform = bunkeringOperationService.canPerformBunkering(

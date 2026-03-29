@@ -1,7 +1,7 @@
 package be.kdg.prog6.warehousing.adapter.out.db.adapter;
 
 import be.kdg.prog6.warehousing.adapter.out.db.entity.*;
-import be.kdg.prog6.warehousing.adapter.out.db.repository.ShipmentAllocationJpaRepository;
+import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseShipmentAllocationJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseDeliveryJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseShipmentJpaRepository;
@@ -29,7 +29,7 @@ public class WarehouseDatabaseAdapter
     private final WarehouseJpaRepository warehouseJpaRepository;
     private final WarehouseDeliveryJpaRepository warehouseDeliveryJpaRepository;
     private final WarehouseShipmentJpaRepository warehouseShipmentJpaRepository;
-    private final ShipmentAllocationJpaRepository shipmentAllocationJpaRepository;
+    private final WarehouseShipmentAllocationJpaRepository warehouseShipmentAllocationJpaRepository;
     // Used instead of implementing the port here, because snapshotting is a separate responsibility
     // WarehouseDatabaseAdapter uses the port to delegate snapshot persistence and loading,
     // maintaining clean separation of concerns as per DDD and Hexagonal Architecture
@@ -38,12 +38,12 @@ public class WarehouseDatabaseAdapter
     public WarehouseDatabaseAdapter(final WarehouseJpaRepository warehouseJpaRepository,
                                     final WarehouseDeliveryJpaRepository warehouseDeliveryJpaRepository,
                                     final WarehouseShipmentJpaRepository warehouseShipmentJpaRepository,
-                                    final ShipmentAllocationJpaRepository shipmentAllocationJpaRepository,
+                                    final WarehouseShipmentAllocationJpaRepository warehouseShipmentAllocationJpaRepository,
                                     final BalanceSnapshotPort balanceSnapshotPort) {
         this.warehouseJpaRepository = warehouseJpaRepository;
         this.warehouseDeliveryJpaRepository = warehouseDeliveryJpaRepository;
         this.warehouseShipmentJpaRepository = warehouseShipmentJpaRepository;
-        this.shipmentAllocationJpaRepository = shipmentAllocationJpaRepository;
+        this.warehouseShipmentAllocationJpaRepository = warehouseShipmentAllocationJpaRepository;
         this.balanceSnapshotPort = balanceSnapshotPort;
     }
 
@@ -176,8 +176,8 @@ public class WarehouseDatabaseAdapter
         warehouseShipmentJpaRepository.save(toWarehouseShipmentJpaEntity(shipment));
         final List<ShipmentAllocation> allocations = shipmentRecord.allocations();
         LOGGER.info("Saving Allocations of Shipment {} for Warehouse {}", shipment.id().id(), warehouseId);
-        shipmentAllocationJpaRepository.saveAll(
-            allocations.stream().map(WarehouseDatabaseAdapter::toShipmentAllocationJpaEntity).toList()
+        warehouseShipmentAllocationJpaRepository.saveAll(
+            allocations.stream().map(WarehouseDatabaseAdapter::toWarehouseShipmentAllocationJpaEntity).toList()
         );
     }
 
@@ -275,7 +275,7 @@ public class WarehouseDatabaseAdapter
             .stream()
             .map(WarehouseDatabaseAdapter::toShipment)
             .collect(Collectors.toList());
-        final List<ShipmentAllocation> allocations = shipmentAllocationJpaRepository
+        final List<ShipmentAllocation> allocations = warehouseShipmentAllocationJpaRepository
             .findAllById_WarehouseId(warehouseId)
             .stream()
             .map(WarehouseDatabaseAdapter::toShipmentAllocation)
@@ -332,7 +332,7 @@ public class WarehouseDatabaseAdapter
             .stream()
             .map(WarehouseDatabaseAdapter::toShipment)
             .toList();
-        final List<ShipmentAllocation> allocations = shipmentAllocationJpaRepository
+        final List<ShipmentAllocation> allocations = warehouseShipmentAllocationJpaRepository
             .findAllById_WarehouseId(warehouseId)
             .stream()
             .map(WarehouseDatabaseAdapter::toShipmentAllocation)
@@ -365,20 +365,20 @@ public class WarehouseDatabaseAdapter
         return new SiteLocation(embeddable.getEasting(), embeddable.getNorthing());
     }
 
-    private static ShipmentAllocationJpaEntity toShipmentAllocationJpaEntity(final ShipmentAllocation allocation) {
-        final ShipmentAllocationJpaId id = ShipmentAllocationJpaId.of(
+    private static WarehouseShipmentAllocationJpaEntity toWarehouseShipmentAllocationJpaEntity(final ShipmentAllocation allocation) {
+        final WarehouseShipmentAllocationJpaId id = WarehouseShipmentAllocationJpaId.of(
             allocation.warehouseId(),
             allocation.shipmentId(),
             allocation.deliveryId()
         );
-        final ShipmentAllocationJpaEntity allocationJpaEntity = new ShipmentAllocationJpaEntity();
+        final WarehouseShipmentAllocationJpaEntity allocationJpaEntity = new WarehouseShipmentAllocationJpaEntity();
         allocationJpaEntity.setId(id);
         allocationJpaEntity.setAmountAllocated(allocation.amountAllocated());
         /* No JPA relationship linking(with delivery & shipment) needed, the composite ID is sufficient for querying */
         return allocationJpaEntity;
     }
 
-    private static ShipmentAllocation toShipmentAllocation(final ShipmentAllocationJpaEntity entity) {
+    private static ShipmentAllocation toShipmentAllocation(final WarehouseShipmentAllocationJpaEntity entity) {
         final WarehouseId warehouseId = WarehouseId.of(entity.getId().getWarehouseId());
         return new ShipmentAllocation(
             warehouseId,

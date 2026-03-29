@@ -2,7 +2,7 @@ package be.kdg.prog6.warehousing;
 
 import be.kdg.prog6.warehousing.adapter.out.db.entity.*;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.SellerJpaRepository;
-import be.kdg.prog6.warehousing.adapter.out.db.repository.ShipmentAllocationJpaRepository;
+import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseShipmentAllocationJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseDeliveryJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseJpaRepository;
 import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseShipmentJpaRepository;
@@ -35,13 +35,13 @@ class GetWarehouseActivityHistoryImplIntegrationTest extends AbstractDatabaseTes
     @Autowired
     private WarehouseShipmentJpaRepository warehouseShipmentJpaRepository;
     @Autowired
-    private ShipmentAllocationJpaRepository shipmentAllocationJpaRepository;
+    private WarehouseShipmentAllocationJpaRepository warehouseShipmentAllocationJpaRepository;
     @Autowired
     private SellerJpaRepository sellerJpaRepository;
 
     @BeforeEach
     void setUp() {
-        shipmentAllocationJpaRepository.deleteAll();
+        warehouseShipmentAllocationJpaRepository.deleteAll();
         warehouseDeliveryJpaRepository.deleteAll();
         warehouseShipmentJpaRepository.deleteAll();
         warehouseJpaRepository.deleteAll();
@@ -51,7 +51,7 @@ class GetWarehouseActivityHistoryImplIntegrationTest extends AbstractDatabaseTes
         warehouseJpaRepository.save(createWarehouse());
         warehouseDeliveryJpaRepository.save(createDelivery());
         warehouseShipmentJpaRepository.save(createShipment());
-        shipmentAllocationJpaRepository.save(createAllocation());
+        warehouseShipmentAllocationJpaRepository.save(createAllocation());
     }
 
     @Test
@@ -121,10 +121,10 @@ class GetWarehouseActivityHistoryImplIntegrationTest extends AbstractDatabaseTes
         return shipment;
     }
 
-    private static ShipmentAllocationJpaEntity createAllocation() {
-        final ShipmentAllocationJpaEntity allocation = new ShipmentAllocationJpaEntity();
+    private static WarehouseShipmentAllocationJpaEntity createAllocation() {
+        final WarehouseShipmentAllocationJpaEntity allocation = new WarehouseShipmentAllocationJpaEntity();
         allocation.setId(
-            ShipmentAllocationJpaId.of(TestIds.WAREHOUSE_ID_1, TestIds.SHIPMENT_ID, TestIds.OLDEST_DELIVERY_ID)
+            WarehouseShipmentAllocationJpaId.of(TestIds.WAREHOUSE_ID_1, TestIds.SHIPMENT_ID, TestIds.OLDEST_DELIVERY_ID)
         );
         allocation.setAmountAllocated(BigDecimal.TEN);
         return allocation;

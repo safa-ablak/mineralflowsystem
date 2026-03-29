@@ -60,7 +60,7 @@ public class ShipPurchaseOrderUseCaseImpl implements ShipPurchaseOrderUseCase {
             purchaseOrder,
             sellerWarehouses
         );
-        // 4. Save to mutated aggregate(s) to the db + publish the shipment event per warehouse.
+        // 4. Save to mutated aggregate(s) to the db + publish a shipment event for each.
         warehouseToShipmentRecord.forEach((warehouse, shipmentRecord) ->
             shipmentRecordedPorts.forEach(
                 port -> port.shipmentRecorded(warehouse, shipmentRecord)

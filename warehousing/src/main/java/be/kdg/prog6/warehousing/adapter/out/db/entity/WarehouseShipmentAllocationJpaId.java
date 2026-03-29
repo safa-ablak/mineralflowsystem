@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Embeddable
-public class ShipmentAllocationJpaId implements Serializable {
+public class WarehouseShipmentAllocationJpaId implements Serializable {
     @Column(name = "warehouse_id", columnDefinition = "varchar(36)")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID warehouseId;
@@ -26,16 +26,16 @@ public class ShipmentAllocationJpaId implements Serializable {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID deliveryId;
 
-    public ShipmentAllocationJpaId() {}
+    public WarehouseShipmentAllocationJpaId() {}
 
-    public ShipmentAllocationJpaId(final UUID warehouseId, final UUID shipmentId, final UUID deliveryId) {
+    public WarehouseShipmentAllocationJpaId(final UUID warehouseId, final UUID shipmentId, final UUID deliveryId) {
         this.warehouseId = warehouseId;
         this.shipmentId = shipmentId;
         this.deliveryId = deliveryId;
     }
 
-    public static ShipmentAllocationJpaId of(final WarehouseId warehouseId, final ShipmentId shipmentId, final DeliveryId deliveryId) {
-        return new ShipmentAllocationJpaId(warehouseId.id(), shipmentId.id(), deliveryId.id());
+    public static WarehouseShipmentAllocationJpaId of(final WarehouseId warehouseId, final ShipmentId shipmentId, final DeliveryId deliveryId) {
+        return new WarehouseShipmentAllocationJpaId(warehouseId.id(), shipmentId.id(), deliveryId.id());
     }
 
     public UUID getWarehouseId() {
@@ -54,7 +54,7 @@ public class ShipmentAllocationJpaId implements Serializable {
     public boolean equals(final Object other) {
         if (this == other) return true;
         if (other == null || getClass() != other.getClass()) return false;
-        final ShipmentAllocationJpaId that = (ShipmentAllocationJpaId) other;
+        final WarehouseShipmentAllocationJpaId that = (WarehouseShipmentAllocationJpaId) other;
         return Objects.equals(warehouseId, that.warehouseId)
             && Objects.equals(shipmentId, that.shipmentId)
             && Objects.equals(deliveryId, that.deliveryId);
