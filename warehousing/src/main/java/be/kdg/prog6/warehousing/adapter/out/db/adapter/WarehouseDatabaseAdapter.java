@@ -176,17 +176,12 @@ public class WarehouseDatabaseAdapter
         warehouseShipmentJpaRepository.save(toWarehouseShipmentJpaEntity(shipment));
         final List<ShipmentAllocation> allocations = shipmentRecord.allocations();
         LOGGER.info("Saving Allocations of Shipment {} for Warehouse {}", shipment.id().id(), warehouseId);
-        saveShipmentAllocations(allocations);
+        shipmentAllocationJpaRepository.saveAll(
+            allocations.stream().map(WarehouseDatabaseAdapter::toShipmentAllocationJpaEntity).toList()
+        );
     }
 
-    private void saveShipmentAllocations(final List<ShipmentAllocation> allocations) {
-        final List<ShipmentAllocationJpaEntity> allocationJpaEntities = allocations.stream()
-            .map(WarehouseDatabaseAdapter::toShipmentAllocationJpaEntity)
-            .toList();
-        shipmentAllocationJpaRepository.saveAll(allocationJpaEntities);
-    }
-
-    private WarehouseDeliveryJpaEntity toWarehouseDeliveryJpaEntity(final Delivery delivery) {
+    private static WarehouseDeliveryJpaEntity toWarehouseDeliveryJpaEntity(final Delivery delivery) {
         final WarehouseDeliveryJpaEntity warehouseDeliveryJpaEntity = new WarehouseDeliveryJpaEntity();
         warehouseDeliveryJpaEntity.setId(WarehouseDeliveryJpaId.of(delivery.id()));
         warehouseDeliveryJpaEntity.setTime(delivery.time());
@@ -194,7 +189,7 @@ public class WarehouseDatabaseAdapter
         return warehouseDeliveryJpaEntity;
     }
 
-    private WarehouseShipmentJpaEntity toWarehouseShipmentJpaEntity(final Shipment shipment) {
+    private static WarehouseShipmentJpaEntity toWarehouseShipmentJpaEntity(final Shipment shipment) {
         final WarehouseShipmentJpaEntity warehouseShipmentJpaEntity = new WarehouseShipmentJpaEntity();
         warehouseShipmentJpaEntity.setId(WarehouseShipmentJpaId.of(shipment.id()));
         warehouseShipmentJpaEntity.setTime(shipment.time());
