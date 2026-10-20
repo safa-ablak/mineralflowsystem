@@ -2,8 +2,8 @@ package be.kdg.prog6.landside;
 
 import be.kdg.prog6.common.security.testsupport.TestSecurityConfig;
 import be.kdg.prog6.common.security.testsupport.WithMockJwt;
-import be.kdg.prog6.landside.adapter.out.db.entity.VisitJpaEntity;
-import be.kdg.prog6.landside.adapter.out.db.repository.VisitJpaRepository;
+import be.kdg.prog6.landside.adapter.out.persistence.entity.VisitJpaEntity;
+import be.kdg.prog6.landside.adapter.out.persistence.repository.VisitJpaRepository;
 import be.kdg.prog6.landside.domain.VisitStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

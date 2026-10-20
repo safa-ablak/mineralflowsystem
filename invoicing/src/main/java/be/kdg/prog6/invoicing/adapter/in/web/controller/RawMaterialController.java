@@ -62,7 +62,7 @@ public class RawMaterialController {
     @PatchMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_ACCOUNTANT', 'ROLE_ADMIN')")
     public ResponseEntity<RawMaterialDto> updateRawMaterialPricing(
-        @PathVariable("id") final UUID id,
+        @PathVariable final UUID id,
         @RequestBody final UpdateRawMaterialPricingDto request,
         @AuthenticationPrincipal final Jwt jwt
     ) {

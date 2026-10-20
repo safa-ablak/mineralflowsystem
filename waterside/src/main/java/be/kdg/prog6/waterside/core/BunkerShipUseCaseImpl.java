@@ -53,11 +53,11 @@ public class BunkerShipUseCaseImpl implements BunkerShipUseCase {
             () -> ShippingOrderNotFoundException.forId(id)
         );
         // 6 BOs per-day rule only applies to the bunkering officer
-        if (requiresLimitCheck(userRole)) {
-            LOGGER.info("Validating bunkering limit for {}", roleDisplayName);
-            bunkeringOperationService.validateBunkeringLimit(dailyCount);
+        if (requiresDailyLimitCheck(userRole)) {
+            LOGGER.info("Validating daily bunkering limit for {}", roleDisplayName);
+            bunkeringOperationService.validateDailyBunkeringLimit(dailyCount);
         } else {
-            LOGGER.info("Bunkering limit validation skipped for {}", roleDisplayName);
+            LOGGER.info("Daily bunkering limit validation skipped for {}", roleDisplayName);
         }
         shippingOrder.performBunkering();
         updateShippingOrderPort.updateShippingOrder(shippingOrder);
@@ -68,7 +68,7 @@ public class BunkerShipUseCaseImpl implements BunkerShipUseCase {
         return shippingOrder;
     }
 
-    private static boolean requiresLimitCheck(final UserRole userRole) {
+    private static boolean requiresDailyLimitCheck(final UserRole userRole) {
         return userRole == UserRole.BUNKERING_OFFICER;
     }
 }

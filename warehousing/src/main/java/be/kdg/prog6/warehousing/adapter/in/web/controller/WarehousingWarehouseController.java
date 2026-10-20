@@ -105,7 +105,7 @@ public class WarehousingWarehouseController {
     @GetMapping("/{id}/balance")
     @PreAuthorize("hasAnyRole('ROLE_WAREHOUSE_MANAGER', 'ROLE_ADMIN')")
     public ResponseEntity<BalanceDto> getWarehouseBalance(
-        @PathVariable("id") final UUID id,
+        @PathVariable final UUID id,
         @RequestParam(name = "as-of", required = false)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime asOf,
         @AuthenticationPrincipal final Jwt jwt
@@ -133,7 +133,7 @@ public class WarehousingWarehouseController {
     @GetMapping("/{id}/balance/net-change")
     @PreAuthorize("hasAnyRole('ROLE_WAREHOUSE_MANAGER', 'ROLE_ADMIN')")
     public ResponseEntity<NetBalanceChangeDto> getNetWarehouseBalanceChangeBetween(
-        @PathVariable("id") final UUID id,
+        @PathVariable final UUID id,
         @RequestParam("from") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime from,
         @RequestParam("to") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) final LocalDateTime to,
         @AuthenticationPrincipal final Jwt jwt
@@ -160,7 +160,7 @@ public class WarehousingWarehouseController {
     @GetMapping("/{id}/balance/snapshots")
     @PreAuthorize("hasAnyRole('ROLE_WAREHOUSE_MANAGER', 'ROLE_ADMIN')")
     public ResponseEntity<List<BalanceSnapshotDto>> getBalanceSnapshotHistory(
-        @PathVariable("id") final UUID id,
+        @PathVariable final UUID id,
         @AuthenticationPrincipal final Jwt jwt
     ) {
         logUserActivity(LOGGER, jwt, format("is viewing Balance Snapshots for Warehouse with ID %s",

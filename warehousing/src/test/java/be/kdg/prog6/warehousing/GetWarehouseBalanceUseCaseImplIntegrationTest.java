@@ -1,11 +1,11 @@
 package be.kdg.prog6.warehousing;
 
-import be.kdg.prog6.warehousing.adapter.out.db.entity.*;
-import be.kdg.prog6.warehousing.adapter.out.db.repository.BalanceSnapshotJpaRepository;
-import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseDeliveryJpaRepository;
-import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseJpaRepository;
-import be.kdg.prog6.warehousing.adapter.out.db.repository.WarehouseShipmentJpaRepository;
-import be.kdg.prog6.warehousing.adapter.out.db.value.SiteLocationEmbeddable;
+import be.kdg.prog6.warehousing.adapter.out.persistence.entity.*;
+import be.kdg.prog6.warehousing.adapter.out.persistence.repository.BalanceSnapshotJpaRepository;
+import be.kdg.prog6.warehousing.adapter.out.persistence.repository.WarehouseDeliveryJpaRepository;
+import be.kdg.prog6.warehousing.adapter.out.persistence.repository.WarehouseJpaRepository;
+import be.kdg.prog6.warehousing.adapter.out.persistence.repository.WarehouseShipmentJpaRepository;
+import be.kdg.prog6.warehousing.adapter.out.persistence.value.SiteLocationEmbeddable;
 import be.kdg.prog6.warehousing.domain.storage.Balance;
 import be.kdg.prog6.warehousing.domain.storage.RawMaterial;
 import be.kdg.prog6.warehousing.port.in.query.GetWarehouseBalanceQuery;

@@ -86,7 +86,7 @@ public class PurchaseOrderController {
      */
     @GetMapping("/{id}")
     @PreAuthorize("hasAnyRole('ROLE_WAREHOUSE_MANAGER', 'ROLE_ADMIN')")
-    public ResponseEntity<PurchaseOrderDto> getPurchaseOrder(@PathVariable("id") final UUID id,
+    public ResponseEntity<PurchaseOrderDto> getPurchaseOrder(@PathVariable final UUID id,
                                                              @AuthenticationPrincipal final Jwt jwt) {
         logUserActivity(LOGGER, jwt, format("is viewing Purchase Order with ID %s",
             id

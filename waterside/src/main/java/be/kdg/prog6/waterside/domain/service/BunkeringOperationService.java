@@ -16,7 +16,7 @@ public class BunkeringOperationService {
      * @param dailyOperationCount The total number of bunkering operations already performed on the given day.
      * @throws BunkeringLimitExceededException if the maximum daily limit is exceeded.
      */
-    public void validateBunkeringLimit(final int dailyOperationCount) {
+    public void validateDailyBunkeringLimit(final int dailyOperationCount) {
         if (!canPerformBunkering(dailyOperationCount)) {
             throw new BunkeringLimitExceededException(dailyOperationCount);
         }

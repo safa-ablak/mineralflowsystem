@@ -63,7 +63,7 @@ public class SellerController {
 
     @DeleteMapping("/{id}/profile-picture")
     @PreAuthorize("hasAnyRole('ROLE_SELLER', 'ROLE_ADMIN')")
-    public ResponseEntity<Void> deleteProfilePicture(@PathVariable final UUID id,
+    public ResponseEntity<Void> removeProfilePicture(@PathVariable final UUID id,
                                                      @AuthenticationPrincipal final Jwt jwt) {
         logUserActivity(LOGGER, jwt, format("is removing the Profile Picture of Seller with ID %s", id));
         removeSellerProfilePictureUseCase.removeProfilePicture(SellerId.of(id), jwt);
