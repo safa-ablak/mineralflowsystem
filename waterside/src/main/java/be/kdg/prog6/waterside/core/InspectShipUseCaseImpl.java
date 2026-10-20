@@ -32,7 +32,7 @@ public class InspectShipUseCaseImpl implements InspectShipUseCase {
         final String inspectorSignature = command.inspectorSignature();
 
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadById(id).orElseThrow(
-            () -> ShippingOrderNotFoundException.forId(id)
+            () -> new ShippingOrderNotFoundException(id)
         );
         shippingOrder.performInspection(inspectorSignature);
         updateShippingOrderPort.updateShippingOrder(shippingOrder);

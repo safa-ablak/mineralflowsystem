@@ -23,7 +23,7 @@ public class GetShippingOrderUseCaseImpl implements GetShippingOrderUseCase {
     public ShippingOrder getShippingOrder(final ShippingOrderId id) {
         LOGGER.info("Getting Shipping Order with ID {}", id.id());
         return loadShippingOrderPort.loadById(id).orElseThrow(
-            () -> ShippingOrderNotFoundException.forId(id)
+            () -> new ShippingOrderNotFoundException(id)
         );
     }
 }

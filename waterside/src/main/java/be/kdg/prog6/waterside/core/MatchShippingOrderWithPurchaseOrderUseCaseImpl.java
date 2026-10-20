@@ -32,7 +32,7 @@ public class MatchShippingOrderWithPurchaseOrderUseCaseImpl implements MatchShip
         LOGGER.info("Matching the Shipping Order with Reference ID {}", referenceId.id());
 
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadByReferenceId(referenceId).orElseThrow(
-            () -> ShippingOrderNotFoundException.forReferenceId(referenceId)
+            () -> new ShippingOrderNotFoundException(referenceId)
         );
         shippingOrder.match();
 
