@@ -18,7 +18,7 @@ public class BunkeringOperationService {
      */
     public void validateDailyBunkeringLimit(final int dailyOperationCount) {
         if (!canPerformBunkering(dailyOperationCount)) {
-            throw new BunkeringLimitExceededException(dailyOperationCount);
+            throw new BunkeringLimitExceededException(MAX_BUNKERING_OPERATIONS_PER_DAY);
         }
     }
 
