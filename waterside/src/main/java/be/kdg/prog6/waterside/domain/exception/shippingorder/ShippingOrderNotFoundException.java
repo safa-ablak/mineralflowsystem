@@ -5,19 +5,11 @@ import be.kdg.prog6.waterside.domain.ReferenceId;
 import be.kdg.prog6.waterside.domain.ShippingOrderId;
 
 public class ShippingOrderNotFoundException extends NotFoundException {
-    private ShippingOrderNotFoundException(final String message) {
-        super(message);
+    public ShippingOrderNotFoundException(final ShippingOrderId id) {
+        super("Shipping Order with ID %s not found".formatted(id.id()));
     }
 
-    public static ShippingOrderNotFoundException forId(final ShippingOrderId id) {
-        return new ShippingOrderNotFoundException(
-            String.format("Shipping Order with ID %s not found", id.id())
-        );
-    }
-
-    public static ShippingOrderNotFoundException forReferenceId(final ReferenceId referenceId) {
-        return new ShippingOrderNotFoundException(
-            String.format("Shipping Order with Reference ID %s not found", referenceId.id())
-        );
+    public ShippingOrderNotFoundException(final ReferenceId referenceId) {
+        super("Shipping Order with Reference ID %s not found".formatted(referenceId.id()));
     }
 }

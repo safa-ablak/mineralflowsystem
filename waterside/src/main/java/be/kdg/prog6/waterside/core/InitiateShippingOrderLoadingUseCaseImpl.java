@@ -29,7 +29,7 @@ public class InitiateShippingOrderLoadingUseCaseImpl implements InitiateShipping
         final ShippingOrderId id = command.shippingOrderId();
         LOGGER.info("Initiating the loading for Shipping Order with ID {}", id.id());
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadById(id).orElseThrow(
-            () -> ShippingOrderNotFoundException.forId(id)
+            () -> new ShippingOrderNotFoundException(id)
         );
         shippingOrder.ensureCanInitiateLoading();
         // Publish event that the shipping order is ready to be loaded (PO will be shipped in the Warehousing Ctx)

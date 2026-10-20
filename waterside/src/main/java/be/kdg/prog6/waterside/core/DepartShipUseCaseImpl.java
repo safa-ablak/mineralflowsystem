@@ -38,7 +38,7 @@ public class DepartShipUseCaseImpl implements DepartShipUseCase {
 
         // Load the shipping order from the db via the Reference ID
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadByReferenceId(referenceId).orElseThrow(
-            () -> ShippingOrderNotFoundException.forReferenceId(referenceId)
+            () -> new ShippingOrderNotFoundException(referenceId)
         );
         // Depart the ship
         shippingOrder.departShip();

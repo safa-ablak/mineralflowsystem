@@ -31,7 +31,7 @@ public class DockShipUseCaseImpl implements DockShipUseCase {
         final ShippingOrderId id = command.shippingOrderId();
         LOGGER.info("Docking the Ship carrying Shipping Order with ID {}", id.id());
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadById(id).orElseThrow(
-            () -> ShippingOrderNotFoundException.forId(id)
+            () -> new ShippingOrderNotFoundException(id)
         );
         shippingOrder.dockShip();
         updateShippingOrderPort.updateShippingOrder(shippingOrder);

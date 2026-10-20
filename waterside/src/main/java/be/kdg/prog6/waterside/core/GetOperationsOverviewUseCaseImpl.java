@@ -24,7 +24,7 @@ public class GetOperationsOverviewUseCaseImpl implements GetOperationsOverviewUs
     public OperationsOverview getOperationsOverview(final ShippingOrderId id) {
         LOGGER.info("Getting Operations Overview for Shipping Order with ID {}", id.id());
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadById(id).orElseThrow(
-            () -> ShippingOrderNotFoundException.forId(id)
+            () -> new ShippingOrderNotFoundException(id)
         );
         // Map to read model and return
         final OperationsOverview overview = OperationsOverview.fromDomain(shippingOrder);

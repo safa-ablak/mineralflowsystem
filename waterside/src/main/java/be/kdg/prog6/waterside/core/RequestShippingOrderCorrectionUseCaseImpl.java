@@ -35,7 +35,7 @@ public class RequestShippingOrderCorrectionUseCaseImpl implements RequestShippin
         final ShippingOrderId id = command.shippingOrderId();
         LOGGER.info("Requesting a correction for Shipping Order with ID {}", id.id());
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadById(id).orElseThrow(
-            () -> ShippingOrderNotFoundException.forId(id)
+            () -> new ShippingOrderNotFoundException(id)
         );
         shippingOrder.amendDetails(command.buyerId(), command.referenceId());
         updateShippingOrderPort.updateShippingOrder(shippingOrder);

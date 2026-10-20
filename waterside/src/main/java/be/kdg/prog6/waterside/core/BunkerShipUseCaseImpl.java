@@ -50,7 +50,7 @@ public class BunkerShipUseCaseImpl implements BunkerShipUseCase {
             bunkeringOperationQueryPort.countPerformedBunkeringOperationsByDate(today);
 
         final ShippingOrder shippingOrder = loadShippingOrderPort.loadById(id).orElseThrow(
-            () -> ShippingOrderNotFoundException.forId(id)
+            () -> new ShippingOrderNotFoundException(id)
         );
         // 6 BOs per-day rule only applies to the bunkering officer
         if (requiresDailyLimitCheck(userRole)) {
