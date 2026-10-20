@@ -25,7 +25,7 @@ public class GetPurchaseOrderUseCaseImpl implements GetPurchaseOrderUseCase {
     public PurchaseOrder getPurchaseOrder(final PurchaseOrderId id) {
         LOGGER.info("Getting Purchase Order with ID {}", id.id());
         return loadPurchaseOrderPort.loadPurchaseOrderById(id).orElseThrow(
-            () -> PurchaseOrderNotFoundException.forId(id)
+            () -> new PurchaseOrderNotFoundException(id)
         );
     }
 }

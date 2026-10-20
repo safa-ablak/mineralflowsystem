@@ -36,7 +36,7 @@ public class FulfillPurchaseOrderUseCaseImpl implements FulfillPurchaseOrderUseC
         LOGGER.info("Fulfilling Purchase Order with ID {}", id.id());
 
         final PurchaseOrder purchaseOrder = loadPurchaseOrderPort.loadPurchaseOrderById(id).orElseThrow(
-            () -> PurchaseOrderNotFoundException.forId(id)
+            () -> new PurchaseOrderNotFoundException(id)
         );
         purchaseOrder.fulfill(); // Fulfill the PO
 

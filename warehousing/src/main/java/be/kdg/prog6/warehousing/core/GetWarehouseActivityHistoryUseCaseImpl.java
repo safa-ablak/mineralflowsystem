@@ -35,7 +35,7 @@ public class GetWarehouseActivityHistoryUseCaseImpl implements GetWarehouseActiv
         final Warehouse warehouse = (switch (viewMode) {
             case WITHOUT_ALLOCATIONS -> loadWarehousePort.loadWarehouseByIdWithAllActivities(warehouseId);
             case WITH_ALLOCATIONS -> loadWarehousePort.loadWarehouseByIdWithAllActivitiesAndAllocations(warehouseId);
-        }).orElseThrow(() -> WarehouseNotFoundException.forId(warehouseId));
+        }).orElseThrow(() -> new WarehouseNotFoundException(warehouseId));
 
         LoggingUtils.logWarehouseActivitiesIfDebug(warehouse, viewMode);
 

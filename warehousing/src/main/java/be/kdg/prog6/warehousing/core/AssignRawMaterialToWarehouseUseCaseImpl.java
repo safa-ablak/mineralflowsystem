@@ -34,7 +34,7 @@ public class AssignRawMaterialToWarehouseUseCaseImpl implements AssignRawMateria
         final RawMaterial rawMaterial = command.rawMaterial();
         final WarehouseId warehouseId = command.warehouseId();
         final Warehouse warehouse = loadWarehousePort.loadWarehouseById(warehouseId).orElseThrow(
-            () -> WarehouseNotFoundException.forId(warehouseId)
+            () -> new WarehouseNotFoundException(warehouseId)
         );
         warehouse.assignRawMaterial(rawMaterial);
         rawMaterialAssignedPorts.forEach(port -> port.rawMaterialAssigned(warehouse));

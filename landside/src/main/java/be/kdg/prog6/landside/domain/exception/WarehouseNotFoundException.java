@@ -5,14 +5,10 @@ import be.kdg.prog6.landside.domain.RawMaterial;
 import be.kdg.prog6.landside.domain.SupplierId;
 
 public class WarehouseNotFoundException extends NotFoundException {
-    private WarehouseNotFoundException(String message) {
-        super(message);
-    }
-
-    public static WarehouseNotFoundException forSupplierIdAndRawMaterial(
+    public WarehouseNotFoundException(
         final SupplierId supplierId,
         final RawMaterial rawMaterial) {
-        return new WarehouseNotFoundException(
+        super(
             String.format("Warehouse with Supplier ID %s and Raw Material %s not found",
                 supplierId.id(), rawMaterial)
         );

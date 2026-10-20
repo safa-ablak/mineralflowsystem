@@ -42,7 +42,7 @@ public class CalculateWarehouseBalanceChangeUseCaseImpl implements CalculateWare
         LOGGER.info("Calculating net Balance change of Warehouse with ID {} from {} to {}", id.id(), from, to);
         final Warehouse warehouse = loadWarehousePort
             .loadWarehouseByIdWithActivitiesBetween(id, from, to).orElseThrow(
-                () -> WarehouseNotFoundException.forId(id)
+                () -> new WarehouseNotFoundException(id)
             );
         LoggingUtils.logWarehouseActivitiesIfDebug(warehouse);
 

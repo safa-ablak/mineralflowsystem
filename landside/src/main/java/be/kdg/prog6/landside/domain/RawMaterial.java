@@ -22,6 +22,6 @@ public enum RawMaterial {
                 return rawMaterial;
             }
         }
-        throw new InvalidRawMaterialException("Invalid Raw Material type provided: " + value);
+        throw new InvalidRawMaterialException(value);
     }
 }

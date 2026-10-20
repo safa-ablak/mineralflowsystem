@@ -30,7 +30,7 @@ public class GetWarehouseOverviewUseCaseImpl implements GetWarehouseOverviewUseC
     public WarehouseOverview getWarehouseOverview(final WarehouseId warehouseId) {
         LOGGER.info("Returning overview of Warehouse with ID {}", warehouseId.id());
         final Warehouse warehouse = loadWarehousePort.loadWarehouseById(warehouseId).orElseThrow(
-            () -> WarehouseNotFoundException.forId(warehouseId)
+            () -> new WarehouseNotFoundException(warehouseId)
         );
         final SellerId sellerId = warehouse.getSellerId();
         final Seller seller = loadSellerPort.loadSellerById(sellerId).orElseThrow();

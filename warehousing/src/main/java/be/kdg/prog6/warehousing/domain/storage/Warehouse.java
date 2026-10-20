@@ -87,7 +87,7 @@ public class Warehouse {
     private void ensureCanAcceptDelivery(final BigDecimal amountToDeliver) {
         if (!canAcceptDelivery(amountToDeliver)) {
             final BigDecimal maxOverflowCapacity = calculateMaxOverflowCapacity();
-            throw DeliveryCapacityExceededException.forDelivery(warehouseId, amountToDeliver, maxOverflowCapacity);
+            throw new DeliveryCapacityExceededException(warehouseId, amountToDeliver, maxOverflowCapacity);
         }
     }
 
@@ -118,7 +118,7 @@ public class Warehouse {
     private void ensureSufficientStock(final BigDecimal amountToShip) {
         if (!canProcessShipment(amountToShip)) {
             final BigDecimal shortfall = amountToShip.subtract(balance());
-            throw InsufficientStockException.forShipment(warehouseId, amountToShip, shortfall);
+            throw new InsufficientStockException(warehouseId, amountToShip, shortfall);
         }
     }
 

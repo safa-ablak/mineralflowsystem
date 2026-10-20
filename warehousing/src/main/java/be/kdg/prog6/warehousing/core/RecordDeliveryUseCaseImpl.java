@@ -33,7 +33,7 @@ public class RecordDeliveryUseCaseImpl implements RecordDeliveryUseCase {
     public void recordDelivery(final RecordDeliveryCommand command) {
         final WarehouseId warehouseId = command.warehouseId();
         final Warehouse warehouse = loadWarehousePort.loadWarehouseById(warehouseId).orElseThrow(
-            () -> WarehouseNotFoundException.forId(warehouseId)
+            () -> new WarehouseNotFoundException(warehouseId)
         );
         final Delivery delivery = warehouse.recordDelivery(command.deliveryAmount());
         // Update the warehouse in the db + publish event for delivery

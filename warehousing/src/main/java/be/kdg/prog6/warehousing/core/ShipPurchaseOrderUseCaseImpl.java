@@ -50,7 +50,7 @@ public class ShipPurchaseOrderUseCaseImpl implements ShipPurchaseOrderUseCase {
         LOGGER.info("Shipping Purchase Order with ID {}", purchaseOrderId.id());
         // 1. Load the purchase order from the db
         final PurchaseOrder purchaseOrder = loadPurchaseOrderPort.loadPurchaseOrderById(purchaseOrderId).orElseThrow(
-            () -> PurchaseOrderNotFoundException.forId(purchaseOrderId)
+            () -> new PurchaseOrderNotFoundException(purchaseOrderId)
         );
         // 2. Load the warehouses of the seller from the db -> This is the right way to do it.
         final List<Warehouse> sellerWarehouses =

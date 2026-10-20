@@ -203,13 +203,13 @@ public class ShippingOrder {
 
     private void ensureInspectionNotCompleted() {
         if (inspection.isCompleted()) {
-            throw InspectionAlreadyCompletedException.forShippingOrder(shippingOrderId);
+            throw new InspectionAlreadyCompletedException(shippingOrderId);
         }
     }
 
     private void ensureBunkeringNotCompleted() {
         if (bunkering.isCompleted()) {
-            throw BunkeringAlreadyCompletedException.forShippingOrder(shippingOrderId);
+            throw new BunkeringAlreadyCompletedException(shippingOrderId);
         }
     }
 

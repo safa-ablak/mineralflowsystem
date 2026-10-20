@@ -27,6 +27,6 @@ public class YearlyCommissionRateDatabaseAdapter implements LoadYearlyCommission
         return yearlyCommissionRateJpaRepository
             .findById(currentYear.getValue())
             .map(entity -> new YearlyCommissionRate(entity.getYear(), entity.getRate()))
-            .orElseThrow(() -> YearlyCommissionRateNotFoundException.forYear(currentYear));
+            .orElseThrow(() -> new YearlyCommissionRateNotFoundException(currentYear));
     }
 }

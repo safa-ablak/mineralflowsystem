@@ -47,7 +47,7 @@ public class RecordTruckWeighOutUseCaseImpl implements RecordTruckWeighOutUseCas
     public WeighBridgeTransaction recordWeighOut(final RecordTruckWeighOutCommand command) {
         final TruckLicensePlate plate = command.truckLicensePlate();
         final Visit visit = loadVisitPort.loadActiveVisitByTruckLicensePlate(plate).orElseThrow(
-            () -> VisitNotFoundException.activeForTruck(plate)
+            () -> new VisitNotFoundException(plate)
         );
         // The weigh bridge was already occupied at docking
         final WeighBridge weighBridge = loadWeighBridgePort.loadByOccupiedByVisitId(visit.getVisitId()).orElseThrow();

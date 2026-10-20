@@ -47,12 +47,12 @@ public class MakeAppointmentUseCaseImpl implements MakeAppointmentUseCase {
 
         final DailySchedule schedule = loadDailySchedulePort
             .loadDailyScheduleByDate(date).orElseThrow(
-                () -> DailyScheduleNotAvailableException.forDate(date)
+                () -> new DailyScheduleNotAvailableException(date)
             );
         // Note: We assume that a supplier can only have at most one warehouse per raw material type.
         final Warehouse warehouse = loadWarehousePort
             .loadWarehouseBySupplierIdAndRawMaterial(supplierId, rawMaterial).orElseThrow(
-                () -> WarehouseNotFoundException.forSupplierIdAndRawMaterial(supplierId, rawMaterial)
+                () -> new WarehouseNotFoundException(supplierId, rawMaterial)
             );
         // Availability for Making Appointments is business logic -> So it should be checked in the domain layer after
         // loading the Warehouse from the DB.
