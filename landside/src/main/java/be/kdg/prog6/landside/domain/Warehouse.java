@@ -58,7 +58,7 @@ public class Warehouse {
 
     public void ensureAvailableForNewAppointment() {
         if (!isAvailable) {
-            throw WarehouseNotAvailableException.forNewAppointment(
+            throw new WarehouseNotAvailableException(
                 warehouseId, supplierId, rawMaterial
             );
         }

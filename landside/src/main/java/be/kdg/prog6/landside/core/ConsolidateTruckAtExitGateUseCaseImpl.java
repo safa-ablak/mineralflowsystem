@@ -35,7 +35,7 @@ public class ConsolidateTruckAtExitGateUseCaseImpl implements ConsolidateTruckAt
     public Visit consolidateTruck(final ConsolidateTruckAtExitGateCommand command) {
         final TruckLicensePlate plate = command.truckLicensePlate();
         final Visit visit = loadVisitPort.loadActiveVisitByTruckLicensePlate(plate).orElseThrow(
-            () -> VisitNotFoundException.activeForTruck(plate)
+            () -> new VisitNotFoundException(plate)
         );
         // Weigh bridge was already released at weigh-out
         final TruckDepartedEvent event = visit.complete();

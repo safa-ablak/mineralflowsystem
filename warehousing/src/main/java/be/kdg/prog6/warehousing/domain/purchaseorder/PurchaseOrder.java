@@ -110,7 +110,7 @@ public class PurchaseOrder {
 
     private void ensureNotEmpty(final List<OrderLine> orderLines) {
         if (orderLines == null || orderLines.isEmpty()) {
-            throw EmptyPurchaseOrderException.forId(purchaseOrderId);
+            throw new EmptyPurchaseOrderException(purchaseOrderId);
         }
     }
 
@@ -128,7 +128,7 @@ public class PurchaseOrder {
         for (OrderLine orderLine : orderLines) {
             final RawMaterial rawMaterial = orderLine.getRawMaterial();
             if (!uniqueRawMaterials.add(rawMaterial)) {
-                throw DuplicateRawMaterialException.forRawMaterial(rawMaterial);
+                throw new DuplicateRawMaterialException(rawMaterial);
             }
         }
     }
@@ -143,7 +143,7 @@ public class PurchaseOrder {
         final BigDecimal totalAmount = calculateTotalAmount(orderLines);
 
         if (totalAmount.compareTo(MAX_WEIGHT.amount()) > 0) {
-            throw PurchaseOrderWeightLimitExceededException.forLimit(MAX_WEIGHT);
+            throw new PurchaseOrderWeightLimitExceededException(MAX_WEIGHT);
         }
     }
 
@@ -193,7 +193,7 @@ public class PurchaseOrder {
     // Guard against duplicate fulfillment to enforce domain invariants
     private void ensureNotFulfilled() {
         if (isFulfilled()) {
-            throw PurchaseOrderAlreadyFulfilledException.forId(purchaseOrderId);
+            throw new PurchaseOrderAlreadyFulfilledException(purchaseOrderId);
         }
     }
 

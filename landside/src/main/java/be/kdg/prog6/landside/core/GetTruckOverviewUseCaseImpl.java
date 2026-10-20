@@ -31,7 +31,7 @@ public class GetTruckOverviewUseCaseImpl implements GetTruckOverviewUseCase {
     public TruckOverview getTruckOverview(final AppointmentId appointmentId) {
         LOGGER.info("Getting Truck Overview for Appointment ID {}", appointmentId.id());
         final Appointment appointment = appointmentQueryPort.loadById(appointmentId).orElseThrow(
-            () -> AppointmentNotFoundException.forId(appointmentId)
+            () -> new AppointmentNotFoundException(appointmentId)
         );
         final Optional<Visit> optionalVisit = loadVisitPort.loadVisitByAppointmentId(appointmentId);
         return TruckOverview.from(appointment, optionalVisit);

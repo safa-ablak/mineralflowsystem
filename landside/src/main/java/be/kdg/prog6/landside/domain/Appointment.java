@@ -6,7 +6,6 @@ import be.kdg.prog6.landside.domain.exception.LateArrivalException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static be.kdg.prog6.common.ProjectInfo.KDG;
 
 public class Appointment {
     /*
@@ -55,10 +54,10 @@ public class Appointment {
      */
     public void ensureWithinArrivalWindow(final LocalDateTime arrivalTime) {
         if (isEarlyArrival(arrivalTime)) {
-            throw new EarlyArrivalException("Truck arrival is early, please check your Appointment arrival window.");
+            throw new EarlyArrivalException();
         }
         if (isLateArrival(arrivalTime)) {
-            throw new LateArrivalException("Truck arrival is late, please book a new Appointment with %s.".formatted(KDG));
+            throw new LateArrivalException();
         }
     }
 

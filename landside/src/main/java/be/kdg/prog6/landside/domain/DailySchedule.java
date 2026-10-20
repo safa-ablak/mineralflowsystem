@@ -42,7 +42,7 @@ public class DailySchedule {
 
     public Appointment fulfillAppointment(final AppointmentId appointmentId) {
         final Appointment appointment = findAppointmentById(appointmentId).orElseThrow(
-            () -> AppointmentNotFoundException.forId(appointmentId)
+            () -> new AppointmentNotFoundException(appointmentId)
         );
         appointment.fulfill();
         return appointment;
@@ -50,7 +50,7 @@ public class DailySchedule {
 
     public void cancelAppointment(final AppointmentId appointmentId) {
         final Appointment appointment = findAppointmentById(appointmentId).orElseThrow(
-            () -> AppointmentNotFoundException.forId(appointmentId)
+            () -> new AppointmentNotFoundException(appointmentId)
         );
         appointment.cancel();
     }

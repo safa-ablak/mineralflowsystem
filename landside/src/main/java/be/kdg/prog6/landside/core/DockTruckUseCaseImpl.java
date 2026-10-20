@@ -49,7 +49,7 @@ public class DockTruckUseCaseImpl implements DockTruckUseCase {
         final TruckLicensePlate plate = command.truckLicensePlate();
         LOGGER.info("Attempting to dock truck with license plate {}", plate.value());
         final Visit visit = loadVisitPort.loadActiveVisitByTruckLicensePlate(plate).orElseThrow(
-            () -> VisitNotFoundException.activeForTruck(plate)
+            () -> new VisitNotFoundException(plate)
         );
         // Occupy a new weigh bridge for the weigh-out on the way out
         final WeighBridge weighBridge = loadWeighBridgePort.loadClosestAvailableWeighBridge().orElseThrow(

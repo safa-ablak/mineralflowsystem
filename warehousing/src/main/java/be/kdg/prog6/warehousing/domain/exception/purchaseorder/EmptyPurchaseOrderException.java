@@ -4,12 +4,8 @@ import be.kdg.prog6.warehousing.domain.exception.WarehousingDomainException;
 import be.kdg.prog6.warehousing.domain.purchaseorder.PurchaseOrderId;
 
 public class EmptyPurchaseOrderException extends WarehousingDomainException {
-    private EmptyPurchaseOrderException(final String message) {
-        super(message);
-    }
-
-    public static EmptyPurchaseOrderException forId(final PurchaseOrderId id) {
-        return new EmptyPurchaseOrderException(
+    public EmptyPurchaseOrderException(final PurchaseOrderId id) {
+        super(
             String.format("Purchase Order with ID %s has no Order Lines.", id.id())
         );
     }

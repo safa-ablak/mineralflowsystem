@@ -77,7 +77,7 @@ public class Invoice {
 
     public void send(final LocalDate sentDate) {
         if (!isReadyToSend()) {
-            throw EmptyInvoiceException.forCustomer(customerId);
+            throw new EmptyInvoiceException(customerId);
         }
         setSentDate(sentDate);
         setStatus(InvoiceStatus.SENT);

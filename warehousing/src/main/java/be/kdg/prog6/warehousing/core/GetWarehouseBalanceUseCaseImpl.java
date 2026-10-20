@@ -41,7 +41,7 @@ public class GetWarehouseBalanceUseCaseImpl implements GetWarehouseBalanceUseCas
         final Warehouse warehouse = loadWarehousePort.loadWarehouseByIdWithActivitiesBetween(
             warehouseId,
             latestSnapshot.snapshotTime(), asOf
-        ).orElseThrow(() -> WarehouseNotFoundException.forId(warehouseId));
+        ).orElseThrow(() -> new WarehouseNotFoundException(warehouseId));
 //        LoggingUtils.logWarehouseActivitiesIfDebug(warehouse); // Would only log activities after the latest snapshot
         final BigDecimal netChangeSinceLatestSnapshot = warehouse.balance();
         return new Balance(asOf, latestSnapshot.amount().add(netChangeSinceLatestSnapshot));

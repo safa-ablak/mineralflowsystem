@@ -4,12 +4,8 @@ import be.kdg.prog6.common.exception.NotFoundException;
 import be.kdg.prog6.warehousing.domain.SellerId;
 
 public class SellerNotFoundException extends NotFoundException {
-    private SellerNotFoundException(String message) {
-        super(message);
-    }
-
-    public static SellerNotFoundException forId(final SellerId id) {
-        return new SellerNotFoundException(
+    public SellerNotFoundException(final SellerId id) {
+        super(
             String.format("Seller with ID %s not found", id.id())
         );
     }

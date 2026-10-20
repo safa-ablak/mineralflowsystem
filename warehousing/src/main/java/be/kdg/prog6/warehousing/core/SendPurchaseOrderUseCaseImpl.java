@@ -46,10 +46,10 @@ public class SendPurchaseOrderUseCaseImpl implements SendPurchaseOrderUseCase {
             buyerId.id(), sellerId.id()
         );
         final Buyer buyer = loadBuyerPort.loadBuyerById(buyerId).orElseThrow(
-            () -> BuyerNotFoundException.forId(buyerId)
+            () -> new BuyerNotFoundException(buyerId)
         );
         final Seller seller = loadSellerPort.loadSellerById(sellerId).orElseThrow(
-            () -> SellerNotFoundException.forId(sellerId)
+            () -> new SellerNotFoundException(sellerId)
         );
         LOGGER.info("Buyer and Seller exist, proceeding to send the Purchase Order");
         final PurchaseOrder purchaseOrder = purchaseOrderFactory.createPurchaseOrder(

@@ -71,7 +71,7 @@ public enum RawMaterial {
     public static RawMaterial fromString(final String value) {
         requireNonNull(value);
         if (value.isBlank()) {
-            throw new InvalidRawMaterialException("Raw material name cannot be empty");
+            throw new InvalidRawMaterialException(value);
         }
         final String normalizedValue = value.toUpperCase().replace(' ', '_');
         for (RawMaterial rm : values()) {
@@ -79,6 +79,6 @@ public enum RawMaterial {
                 return rm;
             }
         }
-        throw new InvalidRawMaterialException("Invalid Raw Material: %s".formatted(value));
+        throw new InvalidRawMaterialException(value);
     }
 }

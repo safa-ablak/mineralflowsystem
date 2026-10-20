@@ -40,7 +40,7 @@ public class GeneratePayloadDeliveryTicketUseCaseImpl implements GeneratePayload
         );
         // Load the warehouse via ID to get the warehouse number.
         final Warehouse warehouse = loadWarehousePort.loadWarehouseById(warehouseId).orElseThrow(
-            () -> WarehouseNotFoundException.forId(warehouseId)
+            () -> new WarehouseNotFoundException(warehouseId)
         );
         final String rawMaterial = warehouse.getRawMaterial().getDisplayName();
         final WarehouseNumber warehouseNumber = warehouse.getWarehouseNumber();

@@ -40,7 +40,7 @@ public class RecordTruckWeighInUseCaseImpl implements RecordTruckWeighInUseCase 
     public WeighBridgeTransaction recordWeighIn(final RecordTruckWeighInCommand command) {
         final TruckLicensePlate plate = command.truckLicensePlate();
         final Visit visit = loadVisitPort.loadActiveVisitByTruckLicensePlate(plate).orElseThrow(
-            () -> VisitNotFoundException.activeForTruck(plate)
+            () -> new VisitNotFoundException(plate)
         );
         // The weigh bridge was already occupied at entrance gate recognition
         final WeighBridge weighBridge = loadWeighBridgePort.loadByOccupiedByVisitId(visit.getVisitId()).orElseThrow();

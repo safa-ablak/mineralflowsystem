@@ -30,7 +30,7 @@ public class ResourceAccessPolicy {
         }
         if (!authenticatedUserId.equals(resourceOwnerId)) {
             LOGGER.warn("User {} attempted to access resource owned by {}", authenticatedUserId, resourceOwnerId);
-            throw UnauthorizedAccessException.byUser(authenticatedUserId, resourceOwnerId);
+            throw new UnauthorizedAccessException(authenticatedUserId, resourceOwnerId);
         }
     }
 }
