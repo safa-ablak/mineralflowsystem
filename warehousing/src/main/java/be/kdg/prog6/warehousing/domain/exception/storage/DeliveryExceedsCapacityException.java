@@ -5,8 +5,8 @@ import be.kdg.prog6.warehousing.domain.storage.WarehouseId;
 
 import java.math.BigDecimal;
 
-public class DeliveryCapacityExceededException extends WarehousingDomainException {
-    public DeliveryCapacityExceededException(
+public class DeliveryExceedsCapacityException extends WarehousingDomainException {
+    public DeliveryExceedsCapacityException(
         final WarehouseId warehouseId,
         final BigDecimal amountToDeliver,
         final BigDecimal maxOverflowCapacity

@@ -3,7 +3,7 @@ package be.kdg.prog6.warehousing.domain.storage;
 import be.kdg.prog6.common.domain.measurement.Weight;
 import be.kdg.prog6.common.domain.measurement.WeightUnit;
 import be.kdg.prog6.warehousing.domain.SellerId;
-import be.kdg.prog6.warehousing.domain.exception.storage.DeliveryCapacityExceededException;
+import be.kdg.prog6.warehousing.domain.exception.storage.DeliveryExceedsCapacityException;
 import be.kdg.prog6.warehousing.domain.exception.storage.InsufficientStockException;
 import be.kdg.prog6.warehousing.domain.exception.storage.RawMaterialConflictException;
 
@@ -77,7 +77,7 @@ public class Warehouse {
      *
      * @param amountToDeliver the delivered amount
      * @return the newly created {@link Delivery} entry
-     * @throws DeliveryCapacityExceededException if adding the delivery would exceed the warehouse capacity
+     * @throws DeliveryExceedsCapacityException if adding the delivery would exceed the warehouse capacity
      */
     public Delivery recordDelivery(final BigDecimal amountToDeliver) {
         ensureCanAcceptDelivery(amountToDeliver);
@@ -87,7 +87,7 @@ public class Warehouse {
     private void ensureCanAcceptDelivery(final BigDecimal amountToDeliver) {
         if (!canAcceptDelivery(amountToDeliver)) {
             final BigDecimal maxOverflowCapacity = calculateMaxOverflowCapacity();
-            throw new DeliveryCapacityExceededException(warehouseId, amountToDeliver, maxOverflowCapacity);
+            throw new DeliveryExceedsCapacityException(warehouseId, amountToDeliver, maxOverflowCapacity);
         }
     }
 

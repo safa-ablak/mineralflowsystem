@@ -5,8 +5,6 @@ import be.kdg.prog6.landside.domain.TruckLicensePlate;
 
 public class VisitNotFoundException extends NotFoundException {
     public VisitNotFoundException(final TruckLicensePlate plate) {
-        super(
-            String.format("No active Visit found for Truck %s", plate)
-        );
+        super(String.format("No active Visit found for Truck %s", plate));
     }
 }

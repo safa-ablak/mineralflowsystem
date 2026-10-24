@@ -5,8 +5,6 @@ import be.kdg.prog6.warehousing.domain.purchaseorder.PurchaseOrderId;
 
 public class PurchaseOrderNotFoundException extends NotFoundException {
     public PurchaseOrderNotFoundException(final PurchaseOrderId id) {
-        super(
-            String.format("Purchase Order with ID %s not found", id.id())
-        );
+        super(String.format("Purchase Order with ID %s not found", id.id()));
     }
 }

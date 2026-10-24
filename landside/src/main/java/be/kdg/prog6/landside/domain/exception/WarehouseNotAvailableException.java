@@ -10,13 +10,11 @@ public class WarehouseNotAvailableException extends LandsideDomainException {
         final SupplierId supplierId,
         final RawMaterial rawMaterial
     ) {
-        super(
-            String.format(
-                "Warehouse %s for Supplier %s (Raw Material %s) is not available for new Appointments",
-                warehouseId.id(),
-                supplierId.id(),
-                rawMaterial
-            )
-        );
+        super(String.format(
+            "Warehouse %s for Supplier %s (Raw Material %s) is not available for new Appointments",
+            warehouseId.id(),
+            supplierId.id(),
+            rawMaterial
+        ));
     }
 }

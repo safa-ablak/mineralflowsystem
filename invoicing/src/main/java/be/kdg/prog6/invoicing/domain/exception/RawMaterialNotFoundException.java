@@ -9,14 +9,10 @@ public class RawMaterialNotFoundException extends NotFoundException {
     }
 
     public static RawMaterialNotFoundException forName(final String name) {
-        return new RawMaterialNotFoundException(
-            String.format("Raw material with name '%s' not found", name)
-        );
+        return new RawMaterialNotFoundException(String.format("Raw material with name '%s' not found", name));
     }
 
     public static RawMaterialNotFoundException forId(final RawMaterialId id) {
-        return new RawMaterialNotFoundException(
-            String.format("Raw material with ID %s not found", id.id())
-        );
+        return new RawMaterialNotFoundException(String.format("Raw material with ID %s not found", id.id()));
     }
 }
